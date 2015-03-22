@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <title>Abel Lee&#39;s Blog</title>
+  <meta name="description" content="" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="MobileOptimized" content="320" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+  <link rel="stylesheet" type="text/css" href="/css/style.css" />
+  <meta name="generator" content="Abel Lee's Blog">
+
+  
+  
+  
+
+  
+</head>
+
+<!--
+<body class="home-template">
+-->
+<body class="home-template">
+<div id="perspective" class="perspective effect-movedown">
+  <div class="container">
+    <!-- wrapper -->
+    <div class="wrapper">
+
+      <header class="site-head"  style="background: #24282b url(/img/img-bg.jpg) 0 -20%" >
+    <div class="vertical">
+        <div class="site-head-content inner">
+             <a class="blog-logo" href="/"><img src="/img/logo.svg" alt="Blog Logo"/></a> 
+            <h1 class="blog-title">Abel Lee's Blog</h1>
+            <h2 class="blog-description"><button id="showMenu">Show Menu</button></h2>
+        </div>
+    </div>
+</header>
+
+      
+<main class="content" role="main">
+  
+  <article class="post">
+    <header class="post-header">
+      <span class="post-meta">
+      <time datetime="2015-03-22T18:06:48.000Z" itemprop="datePublished">
+          2015-03-23
+      </time>
+    
+    
+    | 
+    <a href='/tags/as3commons-DoABC-as3/'>as3commons DoABC as3</a>
+    
+    
+</span>
+      <h2 class="post-title"><a href="/2015/03/23/2013-09-16-as3commons生成DoABC关键部分代码说明/">as3commons生成DoABC关键部分代码说明</a></h2>
+    </header>
+    <section class="post-excerpt">
+      <p>
+      
+        ==swfassist==实在是难学，基本全都要靠猜的，
+学习资料少的不能再少了
+幸好有 ==as3commons==
+再加上 ==as3swf== 就能做一些生成swf的工具了
+好了 闲话少扯
+开始代码吧：
+生成代码的过程，就像我们写代码的顺序一样，
+先生成package
+
+  abcBuilder = new AbcBuilder();
+  packageBuilder = abcBuilder.definePackage("");
+      
+      </p>
+      
+      <p>
+          <a href="/2015/03/23/2013-09-16-as3commons生成DoABC关键部分代码说明/" class="excerpt-link">Read More...</a>
+      </p>
+      
+    </section>
+  </article>
+  
+  <article class="post">
+    <header class="post-header">
+      <span class="post-meta">
+      <time datetime="2015-03-22T18:06:48.000Z" itemprop="datePublished">
+          2015-03-23
+      </time>
+    
+    
+    | 
+    <a href='/tags/UIButton-selected-Objective-C/'>UIButton selected Objective-C</a>
+    
+    
+</span>
+      <h2 class="post-title"><a href="/2015/03/23/2013-09-16-UIButton设置selected后的点击效果/">UIButton设置selected后的点击效果</a></h2>
+    </header>
+    <section class="post-excerpt">
+      <p>
+      
+        当我们想创建一个自定义皮肤的按钮时，
+
+    UIButton* btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [btn setBackgroundImage:(UIImage*) forState:UIControlStateNormal];
+
+
+如果我们想要一个selected的按钮，
+
+    [btn setBackgroundImage:(UIImage*) 
+      
+      </p>
+      
+      <p>
+          <a href="/2015/03/23/2013-09-16-UIButton设置selected后的点击效果/" class="excerpt-link">Read More...</a>
+      </p>
+      
+    </section>
+  </article>
+  
+  <article class="post">
+    <header class="post-header">
+      <span class="post-meta">
+      <time datetime="2015-03-22T18:06:48.000Z" itemprop="datePublished">
+          2015-03-23
+      </time>
+    
+    
+    | 
+    <a href='/tags/Rythum-Game/'>Rythum Game</a>
+    
+    
+</span>
+      <h2 class="post-title"><a href="/2015/03/23/2013-09-16-Rythum+Game（2）/">Rythum Game(2)</a></h2>
+    </header>
+    <section class="post-excerpt">
+      <p>
+      
+        这些天找了全世界的各种资料，
+也试着敲了些代码研究数据，
+感觉可能是卡在哪一步了。
+首先需要知道几个名词，
+bpm Beat Per Minute，也就是每分钟节拍数，通俗点讲，这说明音乐的速度。而到程式里后，因为要跟音乐的时间相关联，所以一般会用以下方法转成beat per millisecond
+
+    60 * 1000 / bpm
+
+
+Sound.extract() 这个方法能把一首音乐的全部原数据提取到一个ByteArray
+      
+      </p>
+      
+      <p>
+          <a href="/2015/03/23/2013-09-16-Rythum+Game（2）/" class="excerpt-link">Read More...</a>
+      </p>
+      
+    </section>
+  </article>
+  
+  <article class="post">
+    <header class="post-header">
+      <span class="post-meta">
+      <time datetime="2015-03-22T18:06:48.000Z" itemprop="datePublished">
+          2015-03-23
+      </time>
+    
+    
+    | 
+    <a href='/tags/Rythum-Game/'>Rythum Game</a>
+    
+    
+</span>
+      <h2 class="post-title"><a href="/2015/03/23/2013-09-16-Rythum+Game（1）/">Rythum Game(1)</a></h2>
+    </header>
+    <section class="post-excerpt">
+      <p>
+      
+        研究好几天了，要命的是，总觉得已经在口子上了，就是进不去- -！
+先用AS3试手，搞通了再想类似Objective-C的实现方式。
+找了这么久，一些相关的资料：
+AS3 — Basic Rhythm Game (Part 1)
+可惜这位没继续写，没有具体怎么从Sound到视图的教程- -！
+Adobe官方 处理动态生成的音频
+一篇讲Sound.extract的文章
+beat detection
+貌似这篇文章很能说明问题了- -！
+但丫的
+      
+      </p>
+      
+      <p>
+          <a href="/2015/03/23/2013-09-16-Rythum+Game（1）/" class="excerpt-link">Read More...</a>
+      </p>
+      
+    </section>
+  </article>
+  
+  <article class="post">
+    <header class="post-header">
+      <span class="post-meta">
+      <time datetime="2015-03-22T18:06:48.000Z" itemprop="datePublished">
+          2015-03-23
+      </time>
+    
+    
+    | 
+    <a href='/tags/ProtocolBuffers-c-objective-c/'>ProtocolBuffers c++ objective-c</a>
+    
+    
+</span>
+      <h2 class="post-title"><a href="/2015/03/23/2013-09-16-ProtocolBuffers使用/">ProtocolBuffers使用</a></h2>
+    </header>
+    <section class="post-excerpt">
+      <p>
+      
+        下载地址就不帖了
+google一下就有
+pb（ProtocolBuffers） 有for N多的语言
+基本常用的都涵盖了。。
+所以不用担心你现在使用的语言会没法用pb
+在某些语言方面貌似pb效率不是最好的
+比如AS3 貌似还是原生的rtmp比较快
+但pb大大降低了通讯方面的复杂性 这一百几十毫秒的差距
+在不是世界级应用的情况下 还是能接受的
+用pb 你基本就不用自己另外写model了
+写了.proto 生成出来的 就是model
+服务端
+      
+      </p>
+      
+      <p>
+          <a href="/2015/03/23/2013-09-16-ProtocolBuffers使用/" class="excerpt-link">Read More...</a>
+      </p>
+      
+    </section>
+  </article>
+  
+  <article class="post">
+    <header class="post-header">
+      <span class="post-meta">
+      <time datetime="2015-03-22T18:06:48.000Z" itemprop="datePublished">
+          2015-03-23
+      </time>
+    
+    
+    | 
+    <a href='/tags/MyEclipse/'>MyEclipse</a>
+    
+    
+</span>
+      <h2 class="post-title"><a href="/2015/03/23/2013-09-16-MyEclipse 2013+For+RMBP/">MyEclipse 2013 For RMBP</a></h2>
+    </header>
+    <section class="post-excerpt">
+      <p>
+      
+        MyEclipse 2013 for Mac 在retina下会糊
+解决办法是 安装好MyEclipse 千万别运行，
+一运行里面的info.plist就被缓存了
+之后怎么改都没用。
+进入MyEclipse Professional.app，用xcode打开info.plist，或者你用其它文本工具打开,当xml一样编辑也行，只不过用xcode要方便些，只需要点”+”号，输入High Resolution Capable 然后设置为tr
+      
+      </p>
+      
+      <p>
+          <a href="/2015/03/23/2013-09-16-MyEclipse 2013+For+RMBP/" class="excerpt-link">Read More...</a>
+      </p>
+      
+    </section>
+  </article>
+  
+  <article class="post">
+    <header class="post-header">
+      <span class="post-meta">
+      <time datetime="2015-03-22T18:06:48.000Z" itemprop="datePublished">
+          2015-03-23
+      </time>
+    
+    
+    | 
+    <a href='/tags/Mac-Air-NativeProcess/'>Mac Air NativeProcess</a>
+    
+    
+</span>
+      <h2 class="post-title"><a href="/2015/03/23/2013-09-16-Mac OS X下AIR通过NavtiveProcess打开Flash.app/">Mac OS X下，AIR通过NavtiveProcess打开Flash.app</a></h2>
+    </header>
+    <section class="post-excerpt">
+      <p>
+      
+        AIR通过NativeProcess调用Terminal.app
+让Flash.app打开指定的.jsfl
+
+    AppleScript:test.scpt
+    on run argv
+    set jsflPath to item 1 of argv
+    set appName to item 2 of argv
+    set jsflFile to POSIX file jsflPath
+    tell appli
+      
+      </p>
+      
+      <p>
+          <a href="/2015/03/23/2013-09-16-Mac OS X下AIR通过NavtiveProcess打开Flash.app/" class="excerpt-link">Read More...</a>
+      </p>
+      
+    </section>
+  </article>
+  
+  <article class="post">
+    <header class="post-header">
+      <span class="post-meta">
+      <time datetime="2015-03-22T18:06:48.000Z" itemprop="datePublished">
+          2015-03-23
+      </time>
+    
+    
+    | 
+    <a href='/tags/gcd/'>gcd</a>
+    
+    
+</span>
+      <h2 class="post-title"><a href="/2015/03/23/2013-09-16-GCD参考[翻译]/">GCD参考[翻译]</a></h2>
+    </header>
+    <section class="post-excerpt">
+      <p>
+      
+        原文链接任务相关方法创建与管理队列
+    dispatch_get_global_queue
+    dispatch_get_main_queue
+    dispatch_queue_create
+    dispatch_get_current_queue
+    dispatch_queue_get_label
+    dispatch_set_target_queue
+    dispatch_main
+
+
+
+队列化任务的分
+      
+      </p>
+      
+      <p>
+          <a href="/2015/03/23/2013-09-16-GCD参考[翻译]/" class="excerpt-link">Read More...</a>
+      </p>
+      
+    </section>
+  </article>
+  
+  <article class="post">
+    <header class="post-header">
+      <span class="post-meta">
+      <time datetime="2015-03-22T18:06:48.000Z" itemprop="datePublished">
+          2015-03-23
+      </time>
+    
+    
+    | 
+    <a href='/tags/CoreData-Objective-C/'>CoreData Objective-C</a>
+    
+    
+</span>
+      <h2 class="post-title"><a href="/2015/03/23/2013-09-16-CoreData使用笔记/">CoreData使用笔记</a></h2>
+    </header>
+    <section class="post-excerpt">
+      <p>
+      
+        作一下记录，以供以后reload - -！！！
+以下是通过一个command line tool的project来说明CoreData中的使用的
+command line tool是创建自OS X的Application
+我使用mysql的库，直接连接到mysql，把一些死数据读到CoreData的sqlite文件里，
+然后再把这个sqlite文件移至ios项目里，以达到部分数据与应用捆绑发布的目的。
+CoreData的基础使用方法在i
+      
+      </p>
+      
+      <p>
+          <a href="/2015/03/23/2013-09-16-CoreData使用笔记/" class="excerpt-link">Read More...</a>
+      </p>
+      
+    </section>
+  </article>
+  
+  <nav class="pagination" role="pagination">
+    <a class="newer-posts" href="/archives/page/2/">← Newer Posts</a>
+    <span class="page-number">Page 3 of 3</span>
+    
+  </nav>
+</main>
+
+
+      
+<footer class="site-footer">
+  
+  <div class="inner">
+     <section class="copyright">All content copyright <a href="/">Abel Lee's Blog</a> &copy; 2014 &bull; All rights reserved.</section>
+     <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://zespia.tw/hexo/">Hexo</a></section>
+  </div>
+</footer>
+
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="/js/index.js"></script>
+<script type="text/javascript" src="/js/menu.js"></script>
+
+
+
+
+
+  </div>
+</div>
+
+<nav  class="outer-nav top horizontal">
+
+          <a class="icon-home"  href="/"><span>Home</span></a>
+
+          <a class="icon-news"  href="/archive"><span>Archive</span></a>
+
+          <a class="icon-image"  href="/images"><span>Images</span></a>
+
+          <a class="icon-wiki"  href="/wiki/2014-10-28-wiki/"><span>Wiki</span></a>
+
+          <a class="icon-Favorites"  href="/favorites"><span>Favorites</span></a>
+
+          <a class="icon-mail"  href="/about/2014-09-11-mabao/"><span>Contact</span></a>
+
+</nav>
+
+</div>
+</body>
+</html>

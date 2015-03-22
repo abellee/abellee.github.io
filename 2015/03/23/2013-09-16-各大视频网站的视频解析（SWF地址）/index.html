@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <title>各大视频网站的视频解析（SWF地址） | Abel Lee&#39;s Blog</title>
+  <meta name="description" content="" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="MobileOptimized" content="320" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+  <link rel="stylesheet" type="text/css" href="/css/style.css" />
+  <meta name="generator" content="Abel Lee's Blog">
+
+  
+  
+  
+
+  
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body class="home-template">
+<div id="perspective" class="perspective effect-movedown">
+  <div class="container">
+    <!-- wrapper -->
+    <div class="wrapper">
+
+      <header class="site-head"  style="background: #24282b url(/img/img-bg.jpg) 0 -20%" >
+    <div class="vertical">
+        <div class="site-head-content inner">
+             <a class="blog-logo" href="/"><img src="/img/logo.svg" alt="Blog Logo"/></a> 
+            <h1 class="blog-title">Abel Lee's Blog</h1>
+            <h2 class="blog-description"><button id="showMenu">Show Menu</button></h2>
+        </div>
+    </div>
+</header>
+
+      
+
+<main class="content" role="main">
+  <article class="post">
+    <span class="post-meta">
+      <time datetime="2015-03-22T18:06:48.000Z" itemprop="datePublished">
+          2015-03-23
+      </time>
+    
+    
+    | 
+    <a href='/tags/as3-视频-解析-swf/'>as3 视频 解析 swf</a>
+    
+    
+</span>
+    <h1 class="post-title">各大视频网站的视频解析（SWF地址）</h1>
+    <section class="post-content">
+      <p>把国内几大主力视频网站的视频解析发一下</p>
+<p>没什么难点 只是我花了点时间折腾而已</p>
+<p>发这里对各位可能有点帮助</p>
+<p>再者是 这个是我的微博工具里使用的 <a href="http://mew.iabel.com" target="_blank" rel="external">Mew微博</a></p>
+<p>然后我关注的人发出来的视频 大部分都是youku tudou之类的 所以我可以确定的是这几个的解析是肯定没问题的</p>
+<p>其它的几个网站 已知的存在问题的是ku6 但也并不是完全失效 因为这段时间没太关注这些网站的这方面的动态 貌似ku6新弄了个版块 二级域名不一样了 所以这部分才出问题了</p>
+<p>但我感觉 基本解析过程还是一样的</p>
+<p>然后除了上面提到的几个站 还有sina这些都是OK的之外 其它的网站是我自己在折腾过程中试过的 是的确可以的 只是我没在我的微博工具里看到有人发那些网站的视频</p>
+<p>再者是奇异的视频 我只能找出视频的swf链接 找不到视频的缩略图 之前花了好多时间在奇异视频解析上 但始终找不到 也就没太在意了 最近也没顾的上再去看看 如果各位谁知道方法 麻烦请回复在下面 指教一下 谢谢了哈。。。</p>
+<p>域名检测以确定视频的发布网站那一步就不说了</p>
+<p>反正各大视频网站的域名弄个表比对过去就能确定是哪个网站的了</p>
+<p>还有要说明的几点是 我只帖解析过程中关键用到的正则 其它你们自己按需求写就可以了</p>
+<p>正则是我用as3写的 有些特有的写法我会作解释</p>
+<p>再一个是 各大视频网站的视频播放页面的编码不同 也需要你自己特别处理一下</p>
+<p>就像优酷用的是utf8 土豆好像是gbk之类的问题</p>
+<a id="more"></a>
+<h3 id="优酷：">优酷：</h3><pre>
+    /id_(?P<id>.+?).html/
+</id></pre>
+
+<p>优酷的视频解析起来还是比较轻松的</p>
+<p>但也有两种情况</p>
+<p>第一种情况是，链接的最后是id_<em>*</em>.html形式的 那星号部分 就是视频的id</p>
+<p>直接用上面的正则把视频id取出来</p>
+<p>然后</p>
+<pre>
+    http://player.youku.com/player.php/sid/ + 视频id + /v.swf
+</pre>
+
+<p>组合一下就是视频的swf地址</p>
+<p>正则里的?P<id>你可以无视 这个是as3特有的写法</id></p>
+<p>这样正则比对出来的结果集中 可以直接通过id这个索引去取结果</p>
+<p>别的语言没这种写法的 删除这部分就OK了。。。</p>
+<p>第二种情况是 如果链接的最后不是id_<em>*</em>.html形式的</p>
+<p>那就得在页面里找视频的id了</p>
+<p>打开页面源代码 ctrl+f搜索 videoId2</p>
+<p>整个页面就只有这一个 后面紧跟着的就是视频的id</p>
+<p>拿到id后就跟第一种情况最后的步骤一样了</p>
+<h3 id="土豆：">土豆：</h3><p>土豆的解析有点麻烦，当初在做的时候就一直抱怨。</p>
+<p>因为土豆的视频链接就不止一种</p>
+<p>第一种情况：</p>
+<pre>
+    /\/p\/[a-z]\d+i(?P<id>\d+).*\.html
+</id></pre>
+
+<p>里面as3特有的正则写法不重复说了，具体可以根据这个正规的写法去对比一下土豆的视频链接</p>
+<p>同样 拿到id后</p>
+<pre>
+    http://www.tudou.com/v/+ 视频id + /v.swf
+</pre>
+
+<p>跟这个组合起来就是视频地址</p>
+<p>第二种情况：</p>
+<pre>
+    /[&#\?]iid=(?P<id>\d+)/
+</id></pre>
+
+<p>不多说了</p>
+<p>还有一种情况，就连视频链接的组合也不同，需要在页面源代码里找，正则是</p>
+<pre>
+    /defaultIid(?:\s*)=(?:\s*)(?P<id>\d+)/
+</id></pre>
+
+<p>找到这个id还要找另一个code，而这个code又能分两种情况找- -！！！麻烦吧。。</p>
+<p>一种情况是：</p>
+<pre>
+    /lcode(?:\s*)=(?:\s*)\'(?P<code>.+?)(?:\s*)\'/
+</code></pre>
+
+<p>另一种情况是：</p>
+<pre>
+    /icode(?:\s*)=(?:\s*)\'(?P<code>.+?)(?:\s*)\'/
+</code></pre>
+
+<p>应该能看出差别吧 一个是lcode 一个是icode</p>
+<p>唉。。无语。。</p>
+<p>然后组合的链接是</p>
+<pre>
+    http://www.tudou.com/l/+ lcode或者icode + /&iid=+ 视频id + /v.swf
+</pre>
+
+<h3 id="酷6：">酷6：</h3><p>酷6蛮干脆的 直接进页面源代码找。</p>
+<p>而且也很一次性的把视频id跟缩略图都找出来了</p>
+<pre>
+    /[\$nsA]\.VideoInfo(?:\s*)=(?:\s*){.+id(?:\s*):(?:\s*)\"(?:\s*)(?P<id>.+?)(?:\s*)\"(?:\s*),(?:\s*)uid.+cover(?:\s*):(?:\s*)\"(?:\s*)(?P<img>.+?)(?:\s*)\"/
+</id></pre>
+
+<p>然后</p>
+<pre>
+http://player.ku6.com/refer/+ 视频id + /v.swf
+</pre>
+
+<p>组合一下就OK了</p>
+<h3 id="Sina:">Sina:</h3><p>新浪视频也直接进页面源代码</p>
+<pre>
+    /swfOutsideUrl(?:\s*):(?:\s*)\'(?:\s*)(?P<src>.+?)(?:\s*)\'(?:\s*),/
+</src></pre>
+
+<p>直接搞定</p>
+<h3 id="56：">56：</h3><p>在视频链接的最后一个”/“与最后一个”.”之间的就是视频id</p>
+<pre>
+http://player.56.com/"+ 视频id + ".swf
+</pre>
+
+
+<h3 id="sohu:">sohu:</h3><p>直接从页面源代码找</p>
+<pre>
+    /var(?:\s*)vid(?:\s*)=(?:\s*)\"(?:\s*)(?P<id>.+?)(?:\s*)\"(?:\s*);/
+</id></pre>
+
+<p>然后是</p>
+<pre>
+    http://share.vrs.sohu.com/"+ 视频id + "/v.swf
+</pre>
+
+
+<p>音乐台：</p>
+<p>这个也简单，直接在页面源代码找</p>
+<pre>
+    /<meta(?:\s*)property=\"og:videosrc\"(?:\s*)content=\"(?p<src>.+?)\"(?:\s*)\/>/
+</meta(?:\s*)property=\"og:videosrc\"(?:\s*)content=\"(?p<src></pre>
+
+<p>就OK了</p>
+<h3 id="v1:">v1:</h3><ul>
+<li>-！麻烦的来了</li>
+</ul>
+<p>v1的视频的链接没办法通过链接或源代码里的一些信息就能组合出来</p>
+<p>因为他们的播放器涉及到版本的问题</p>
+<p>好像是有分高清跟普通的区别</p>
+<p>所以这些代码深的很，还需要进入相应的js文件再找</p>
+<p>所以我们得先找js文件的链接</p>
+<pre>
+    /<script(?:\s*)type=\"text\ javascript\"(?:\s*)src="\"(?P<jssrc">.+?)\">(?:\s*)<\ script="">(?:\s*)<script>writeAlbumHtml\(\{id:\"(?P<id>.+?)\"\}\);<\/script>/
+</pre>
+
+<p>其中的(?P<jssrc>.+?)里面的jssrc就是js文件的地址，依旧是as3特有写法，不说了哈。</p>
+<p>然后(?P<id>.+?)这个是视频id，要记下来</p>
+<p>接着加载js文件</p>
+<p>然后再用正则在js里找播放器链接</p>
+<pre>
+    /html8(?:\s*)\+=(?:\s*)\"<embed(?:\s*)src=(?P<src>.+?)(?:\s*)FlashVars=id=\"(?:\s*).+<\/  
+object>\";/
+</pre>
+
+<p>把这里的(?P<src>.+?)跟上面保存的视频id组合起来</p>
+<p>也就是src + “&amp;id=” + 视频id</p>
+<h3 id="cntv：">cntv：</h3><p>这个是更麻烦的- -！！！</p>
+<p>你会发现 一些固定的参数一堆又一堆的要找 然后全堆到链接上才算是真正的视频链接- -！！！</p>
+<p>页面源代码找，先找一个videoCenterId</p>
+<pre>
+    /var(?:\s*)videoCenterId(?:\s*)=(?:\s*)\"(?P<videoCenterId>.+?)\";/
+</pre>
+
+<p>再找视频id</p>
+<pre>
+    /fo\.addVariable\(\"videoId\"\,(?:\s*)\"(?P<videoId>.+?)\"\)\;/
+</pre>
+
+<p>接着找一个文件路径，原来猜了一下这个文件的用处，现在忘记了 反正这个是一定要找的</p>
+<p>要在最后跟别的参数组成视频链接地址</p>
+<pre>
+    /fo\.addVariable\(\"filePath\"\,(?:\s*)\"(?P<filePath>.+?)\"\)\;/
+</pre>
+
+<p>再找一个url  汗。。。</p>
+<pre>
+    /fo\.addVariable\(\"url\"\,(?:\s*)\"(?P<url>.+?)\"\)\;/
+</pre>
+
+<p>最后组合视频链接- -！作好心理准备 真的很长。。。。</p>
+<pre>
+"http://player.cntv.cn/standard/cntvOutSidePlayer.swf?videoId="+ 上面找的视频id +"&filePath="+ 上面找的文件路径 + "&isAutoPlay=false&url="+ 上面找的url +"&tai=bugu&configPath=http://bugu.cntv.cn/nettv/Library/ibugu/player/config.xml&widgetsConfig=http://bugu.cntv.cn/nettv/Library/ibugu/player/widgetsConfig.xml&languageConfig=http://bugu.cntv.cn/nettv/Library/ibugu/player/zh_cn.xml&hour24DataURL=&outsideChannelId=channelBugu&videoCenterId="+ 上面找的videoCenterId
+</pre>
+
+<p>里面的引号你们用的时候去掉吧 我直接代码里复制出来的 太长了 我就不去一个个找出来删了- -！ 反正你们也知道什么个意思 哈哈。。。</p>
+<h3 id="激动网：">激动网：</h3><p>这也比较简单 直接开页面源代码</p>
+<pre>
+    /var(?:\s*)\_video\_obj\=\{id\:\"(?P<id>.+?)\"\,.+\,cover\:\"(?P<img>.+?)\"\,.+\,title\:\"(?P<title>.+?)"\,.+\,playUrl\:\".+\"\,sharable\:.+\,pId\:.+\,cId\:.+\,vId\:.+\}\;/
+</pre>
+
+<p>这其中已经包含了视频id、缩略图、视频标题了，自己选着用吧</p>
+<pre>
+http://client.joy.cn/flvplayer/kx_+ 视频id + _1_1_1.swf
+</pre>
+
+<p>然后组合一下。</p>
+<h3 id="奇异：">奇异：</h3><p>开页面源代码</p>
+<p>先找videoId</p>
+<pre>
+    /videoId(?:\s*):(?:\s*)\"(?P<vid>.+?)\",/
+</pre>
+
+<p>接着找pid</p>
+<pre>
+    /pid(?:\s*):(?:\s*)\"(?P<pid>.+?)\",/
+</pre>
+
+<p>再接着找ptype</p>
+<pre>
+    /ptype(?:\s*):(?:\s*)\"(?P<ptype>.+?)\",/
+</pre>
+
+<p>再找albumId</p>
+<pre>
+    /albumId(?:\s*):(?:\s*)\"(?P<albumId>.+?)\",/
+</pre>
+
+<p>哭- -！！！！</p>
+<p>还要找tvId</p>
+<pre>
+    /tvId(?:\s*):(?:\s*)\"(?P<tvId>.+?)\",/
+</pre>
+
+<p>终于可以找视频链接了- -！</p>
+<pre>
+    /var(?:\s*)flashUrl(?:\s*)=(?:\s*)\'(?P<url>.+?)\';/
+</pre>
+
+<p>然后把这一步找出来的</p>
+<pre>
+    url + "?vid="+ vid + "&pid="+ pid + "&ptype="+ ptype +"&albumId="+ albumId + "&tvId="+ tvId
+</pre>
+
+<p>就是视频地址了</p>
+<p>至于奇异视频的缩略图，我只能说 我之前一直没找到，但有部分视频 在上面找到的那些信息里是可以拼出缩略图的 但却不是百分百有用的 因为奇异大部分视频的缩略图貌似都跟日期有关 而且这个日期在页面的确能找到 但又有很多视频的缩略图，却跟页面所能找到的日期是不同的，然后我当初就是没搞明白这其中有何规律 如果你们有谁找到解决办法了的话 麻烦请指点我一下，先谢过了。</p>
+<p>这些是我之前在做Mew微博的时候所解析的大部分的视频网站的视频地址，因为找了一下 大大小小的网站，实在太多了，之前把六间房的也解析了 但后来感觉六间房现在更注重视频聊天室方面的业务，其它视频质量都很差，虽然解析出来了 也没放进代码，因为之前电脑的硬盘被我摔坏了 数据全没了 所以这些本已经解析好的方法也没了。。。唉～</p>
+<p>不过你们完全可以自己去找一下其中的规律，六间房的还是不麻烦的</p>
+<p>然后最后我想说的是 这些解析的方法，是我在做Mew微博的时候做的解析，距离现在已经有将近一个半月了 我不知道这些视频网站有没有改过他们的代码，亦或者他们可能已经有了新的版块 其中也有视频 这些可能都需要你们自己去研究了 我这就不多说了 反正都差不多 也没什么难度，花点时间你们完全都能搞出来。不过可以确定的是 youku、tudou、sina这些都是没问题的。</p>
+<p>好了 就到这吧 写的肚子都疼了。。去趟厕所先- -！！！</p>
+</script></\></script(?:\s*)type=\"text\></pre>
+    </section>
+    <footer class="post-footer">
+      <section class="author">
+    <h4>Abel Lee</h4>
+    <p></p>
+</section>
+      <section class="share">
+    <h4>Share this post</h4>
+    <a class="icon-sina-weibo" href="http://v.t.sina.com.cn/share/share.php?title= ?url=http://www.iabel.com/2015/03/23/2013-09-16-各大视频网站的视频解析（SWF地址）/" target="_blank">
+        <span class="hidden">weibo</span>
+    </a>
+    <a class="icon-twitter" href="http://twitter.com/share?url=http://www.iabel.com/2015/03/23/2013-09-16-各大视频网站的视频解析（SWF地址）/"
+       onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+    </a>
+    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://www.iabel.com/2015/03/23/2013-09-16-各大视频网站的视频解析（SWF地址）/"
+       onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+    </a>
+    <a class="icon-google-plus" href="https://plus.google.com/share?url=http://www.iabel.com/2015/03/23/2013-09-16-各大视频网站的视频解析（SWF地址）/"
+       onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+    </a>
+</section>
+
+    </footer>
+  </article>
+  <nav class="pagination" role="pagination">
+    
+    <span class="icon-logo">•</span>
+    
+    <a class="older-posts" href="/2015/03/23/2013-09-16-AIR支持RetinaDisplay/">
+        AIR支持Retina Display →
+    </a>
+    
+</nav>
+
+  <div id="comment" class="comments-area">
+    <h4 class="title"><a href="#disqus_comments" name="disqus_comments">Comments</a></h4>
+    
+</div>
+
+</main>
+
+
+      
+<footer class="site-footer">
+  
+  <div class="inner">
+     <section class="copyright">All content copyright <a href="/">Abel Lee's Blog</a> &copy; 2014 &bull; All rights reserved.</section>
+     <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://zespia.tw/hexo/">Hexo</a></section>
+  </div>
+</footer>
+
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="/js/index.js"></script>
+<script type="text/javascript" src="/js/menu.js"></script>
+
+
+
+
+
+  </div>
+</div>
+
+<nav  class="outer-nav top horizontal">
+
+          <a class="icon-home"  href="/"><span>Home</span></a>
+
+          <a class="icon-news"  href="/archive"><span>Archive</span></a>
+
+          <a class="icon-image"  href="/images"><span>Images</span></a>
+
+          <a class="icon-wiki"  href="/wiki/2014-10-28-wiki/"><span>Wiki</span></a>
+
+          <a class="icon-Favorites"  href="/favorites"><span>Favorites</span></a>
+
+          <a class="icon-mail"  href="/about/2014-09-11-mabao/"><span>Contact</span></a>
+
+</nav>
+
+</div>
+</body>
+</html>

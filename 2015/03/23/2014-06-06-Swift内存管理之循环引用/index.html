@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <title>Swift内存管理--循环引用 | Abel Lee&#39;s Blog</title>
+  <meta name="description" content="" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="MobileOptimized" content="320" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+  <link rel="stylesheet" type="text/css" href="/css/style.css" />
+  <meta name="generator" content="Abel Lee's Blog">
+
+  
+  
+  
+
+  
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body class="home-template">
+<div id="perspective" class="perspective effect-movedown">
+  <div class="container">
+    <!-- wrapper -->
+    <div class="wrapper">
+
+      <header class="site-head"  style="background: #24282b url(/img/img-bg.jpg) 0 -20%" >
+    <div class="vertical">
+        <div class="site-head-content inner">
+             <a class="blog-logo" href="/"><img src="/img/logo.svg" alt="Blog Logo"/></a> 
+            <h1 class="blog-title">Abel Lee's Blog</h1>
+            <h2 class="blog-description"><button id="showMenu">Show Menu</button></h2>
+        </div>
+    </div>
+</header>
+
+      
+
+<main class="content" role="main">
+  <article class="post">
+    <span class="post-meta">
+      <time datetime="2015-03-22T18:06:48.000Z" itemprop="datePublished">
+          2015-03-23
+      </time>
+    
+    
+    | 
+    <a href='/tags/beego-crossdomain/'>beego, crossdomain</a>
+    
+    
+</span>
+    <h1 class="post-title">Swift内存管理--循环引用</h1>
+    <section class="post-content">
+      <p>循环引用一直是所有开发语言最烦的事情，特别是像c/c++这些低级语言，而其它高级语言，诸如Java之类的，因为有了垃圾回收机制，很好的让开发者从循环引用中解脱出来。</p>
+<p>而Swift中的内存管理，使用的是Objective-C的ARC，本质与Java之类的语言的垃圾回收机制是不同的，所以我们还是需要做一些小动作，来避免循环引用的问题。从ARC的面世，即带入了强、弱引用的概念，而在Objective-C中，强引用(strong)即为非ARC中的retain，而弱引用，即为非ARC中的assign，而在ARC中，我们是无法直接使用retain之类的关键词来增加对象的引用计数的，是编译时，ARC自动为我们加入了retain之类的操作，所以这样对于开发者而言，弱引用的对象，一定意义上，在无用时是一直保持1的引用计数，所以在任何其依附的被强引用的对象释放时，它都可以一起被释放掉。</p>
+<p>虽然Swift中的内存管理使用的是Objective-C的ARC，但它着实装的很像一些高级语言的垃圾回收机制，当你不再需要某个对象，并且想要它被内存回收，你就将置为nil，它就会马上被内存回收。</p>
+<h5 id="强引用(strong_reference)">强引用(strong reference)</h5><p>在Swift中，普通var或let出来的对象，默认就是强引用(strong reference)，那就容易遇到循环引用的问题。</p>
+<p>比如A对象包含B，而B对象同时也包含了A，这个时候，你不管将哪个对象设为nil，都是没用的，必将造成内存泄漏，这就是强引用带来的诟病。</p>
+<h5 id="弱引用(weak_reference)">弱引用(weak reference)</h5><p>这个时候，弱引用就很好的派上了用场，你可以理解为，在Swift中，弱引用的引用计数永远是1的，而且在运行时，它也是可以随时被置为nil的，因为上面说到的循环引用，就得到了很好的解决，只要你将A中的B添加一个weak关键词，或者给B中的A添加，只要A或B任意一个被释放，另一个因为是weak reference，也会无条件被释放，但你需要注意，正是因为弱引用的这种特性，又引出了另一个问题。基于前文中A与B的关系，假设再出来一个C，它可能并未与A或B形成循环引用，它只是引用了其中一个，而这一个正好是弱引用者，当A与B都被释放后，身为弱引用的其中一个就会被无情的释放，尽管还有一个C引用着，这个时候如果你还认为你可以顺利的访问C中的那个弱引用者的话，我想你的程序马上就要crash了。所以，当我们在操作弱引用之前，最好做一下判断。</p>
+<h5 id="无主孤魂(unowned_reference)">无主孤魂(unowned reference)</h5><p>在解决循环引用的问题里，Swift还提供了另一个解决方案，就是unowned reference，因为他一直装作自己是有人要的，所以它不能设置为optional types，也就是它后面不能加问号(?)或叹号(!)，这个更直接，就是它本身就不属于任何对象，虽然它的确是某个对象的引用- -！，所以在释放时，它这种游魂野鬼自然就直接被收拾了。</p>
+<p>其实我们看一下官方的那本关于Swift语言的书之后，就比较好理解这两者之间的区别，实际情况是，要考虑程序的效率问题，所以我们一般都会将对象进行延迟创建，也就是说，什么时候用到了，再去创建它，所以在Swift中，可能比较常用的，就是将对象设置为Optional types，这也是弱引用的对象所必须的要求，而unowned referece对象，则不行，它必须一开始就被创建。所以我觉得，最好把持有unowned reference的对象与@lazy一起使用，让它使用时，才被创建。</p>
+<p>而就像在弱引用中讲到的，如果出现三角关系，对于弱引用，因为其本身是optional type，所以在被释放它后，你还是可以访问到它，只不过是nil而已，而unowned reference被释放后，你再去访问，迎接你的就是crash了- -！</p>
+
+    </section>
+    <footer class="post-footer">
+      <section class="author">
+    <h4>Abel Lee</h4>
+    <p></p>
+</section>
+      <section class="share">
+    <h4>Share this post</h4>
+    <a class="icon-sina-weibo" href="http://v.t.sina.com.cn/share/share.php?title= ?url=http://www.iabel.com/2015/03/23/2014-06-06-Swift内存管理之循环引用/" target="_blank">
+        <span class="hidden">weibo</span>
+    </a>
+    <a class="icon-twitter" href="http://twitter.com/share?url=http://www.iabel.com/2015/03/23/2014-06-06-Swift内存管理之循环引用/"
+       onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+    </a>
+    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://www.iabel.com/2015/03/23/2014-06-06-Swift内存管理之循环引用/"
+       onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+    </a>
+    <a class="icon-google-plus" href="https://plus.google.com/share?url=http://www.iabel.com/2015/03/23/2014-06-06-Swift内存管理之循环引用/"
+       onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+    </a>
+</section>
+
+    </footer>
+  </article>
+  <nav class="pagination" role="pagination">
+    
+    <a class="newer-posts" href="/2015/03/23/2014-07-11-EaselJS(CreateJS)屏幕适配/">
+        ← EaselJS(CreateJS)屏幕适配
+    </a>
+    
+    <span class="icon-logo">•</span>
+    
+    <a class="older-posts" href="/2015/03/23/2014-03-20-关于beego中访问crossdomain/">
+        关于beego中访问crossdomain →
+    </a>
+    
+</nav>
+
+  <div id="comment" class="comments-area">
+    <h4 class="title"><a href="#disqus_comments" name="disqus_comments">Comments</a></h4>
+    
+</div>
+
+</main>
+
+
+      
+<footer class="site-footer">
+  
+  <div class="inner">
+     <section class="copyright">All content copyright <a href="/">Abel Lee's Blog</a> &copy; 2014 &bull; All rights reserved.</section>
+     <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://zespia.tw/hexo/">Hexo</a></section>
+  </div>
+</footer>
+
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="/js/index.js"></script>
+<script type="text/javascript" src="/js/menu.js"></script>
+
+
+
+
+
+  </div>
+</div>
+
+<nav  class="outer-nav top horizontal">
+
+          <a class="icon-home"  href="/"><span>Home</span></a>
+
+          <a class="icon-news"  href="/archive"><span>Archive</span></a>
+
+          <a class="icon-image"  href="/images"><span>Images</span></a>
+
+          <a class="icon-wiki"  href="/wiki/2014-10-28-wiki/"><span>Wiki</span></a>
+
+          <a class="icon-Favorites"  href="/favorites"><span>Favorites</span></a>
+
+          <a class="icon-mail"  href="/about/2014-09-11-mabao/"><span>Contact</span></a>
+
+</nav>
+
+</div>
+</body>
+</html>

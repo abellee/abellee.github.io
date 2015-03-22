@@ -9,8 +9,8 @@
   <meta name="HandheldFriendly" content="True" />
   <meta name="MobileOptimized" content="320" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" type="text/css" href="/blog/css/screen.css" />
-  <link rel="stylesheet" type="text/css" href="/blog/css/style.css" />
+  <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+  <link rel="stylesheet" type="text/css" href="/css/style.css" />
   <meta name="generator" content="Abel Lee's Blog">
 
   
@@ -32,7 +32,7 @@
       <header class="site-head"  style="background: #24282b url(/img/img-bg.jpg) 0 -20%" >
     <div class="vertical">
         <div class="site-head-content inner">
-             <a class="blog-logo" href="/blog/"><img src="/img/logo.svg" alt="Blog Logo"/></a> 
+             <a class="blog-logo" href="/"><img src="/img/logo.svg" alt="Blog Logo"/></a> 
             <h1 class="blog-title">Abel Lee's Blog</h1>
             <h2 class="blog-description"><button id="showMenu">Show Menu</button></h2>
         </div>
@@ -45,23 +45,328 @@
   <article class="post">
     <header class="post-header">
       <span class="post-meta">
-      <time datetime="2015-03-22T15:45:04.000Z" itemprop="datePublished">
-          2015-03-22
+      <time datetime="2015-03-22T18:06:48.000Z" itemprop="datePublished">
+          2015-03-23
       </time>
     
+    
+    | 
+    <a href='/tags/as3-视频-解析-swf/'>as3 视频 解析 swf</a>
+    
+    
 </span>
-      <h2 class="post-title"><a href="/blog/2015/03/22/hello-world/">Hello World</a></h2>
+      <h2 class="post-title"><a href="/2015/03/23/2013-09-16-各大视频网站的视频解析（SWF地址）/">各大视频网站的视频解析（SWF地址）</a></h2>
     </header>
     <section class="post-excerpt">
       <p>
       
-        Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick StartCreate a new p
+        <p>把国内几大主力视频网站的视频解析发一下</p>
+<p>没什么难点 只是我花了点时间折腾而已</p>
+<p>发这里对各位可能有点帮助</p>
+<p>再者是 这个是我的微博工具里使用的 <a href="http://mew.iabel.com">Mew微博</a></p>
+<p>然后我关注的人发出来的视频 大部分都是youku tudou之类的 所以我可以确定的是这几个的解析是肯定没问题的</p>
+<p>其它的几个网站 已知的存在问题的是ku6 但也并不是完全失效 因为这段时间没太关注这些网站的这方面的动态 貌似ku6新弄了个版块 二级域名不一样了 所以这部分才出问题了</p>
+<p>但我感觉 基本解析过程还是一样的</p>
+<p>然后除了上面提到的几个站 还有sina这些都是OK的之外 其它的网站是我自己在折腾过程中试过的 是的确可以的 只是我没在我的微博工具里看到有人发那些网站的视频</p>
+<p>再者是奇异的视频 我只能找出视频的swf链接 找不到视频的缩略图 之前花了好多时间在奇异视频解析上 但始终找不到 也就没太在意了 最近也没顾的上再去看看 如果各位谁知道方法 麻烦请回复在下面 指教一下 谢谢了哈。。。</p>
+<p>域名检测以确定视频的发布网站那一步就不说了</p>
+<p>反正各大视频网站的域名弄个表比对过去就能确定是哪个网站的了</p>
+<p>还有要说明的几点是 我只帖解析过程中关键用到的正则 其它你们自己按需求写就可以了</p>
+<p>正则是我用as3写的 有些特有的写法我会作解释</p>
+<p>再一个是 各大视频网站的视频播放页面的编码不同 也需要你自己特别处理一下</p>
+<p>就像优酷用的是utf8 土豆好像是gbk之类的问题</p>
       
       </p>
       
       <p>
-          <a href="/blog/2015/03/22/hello-world/" class="excerpt-link">Read More...</a>
+          <a href="/2015/03/23/2013-09-16-各大视频网站的视频解析（SWF地址）/" class="excerpt-link">Read More...</a>
+      </p>
+      
+    </section>
+  </article>
+  
+  <article class="post">
+    <header class="post-header">
+      <span class="post-meta">
+      <time datetime="2015-03-22T18:06:48.000Z" itemprop="datePublished">
+          2015-03-23
+      </time>
+    
+    
+    | 
+    <a href='/tags/AIR-Retina/'>AIR Retina</a>
+    
+    
+</span>
+      <h2 class="post-title"><a href="/2015/03/23/2013-09-16-AIR支持RetinaDisplay/">AIR支持Retina Display</a></h2>
+    </header>
+    <section class="post-excerpt">
+      <p>
+      
+        Adobe AIR 3.8就已经支持retina了，
+但至少工具们都没支持，
+只能手动输入了。
+在生成的配置文件，也就是在应用名-app.xml的&lt;initialWindow&gt;节点下，
+增加：  
+
+    
+    high
+    
+
+
+就OK了~
+
+      
+      </p>
+      
+      <p>
+          <a href="/2015/03/23/2013-09-16-AIR支持RetinaDisplay/" class="excerpt-link">Read More...</a>
+      </p>
+      
+    </section>
+  </article>
+  
+  <article class="post">
+    <header class="post-header">
+      <span class="post-meta">
+      <time datetime="2015-03-22T18:06:48.000Z" itemprop="datePublished">
+          2015-03-23
+      </time>
+    
+    
+    | 
+    <a href='/tags/node-webkit/'>node-webkit</a>
+    
+    
+</span>
+      <h2 class="post-title"><a href="/2015/03/23/2014-12-20-node-webkit无法加载flash的解决方案/">node-webkit无法加载flash的解决方案</a></h2>
+    </header>
+    <section class="post-excerpt">
+      <p>
+      
+        之前都是直接在Mac下做的node-webkit开发，都没发现flash无法加载的问题，其实准确来讲，是压根儿也没怎么用过flash。
+这些天在折腾XMPP的开发，外框架用的是node-webkit，通讯部分用的是flash，理所当然的就设置了plugins为true，但运行后显示couldn’t load plug-in，开始觉得，会不会因为我是直接用ST运行的缘故，搜了一下，官方github上就有issue讨论此问题的，都说把fla
+      
+      </p>
+      
+      <p>
+          <a href="/2015/03/23/2014-12-20-node-webkit无法加载flash的解决方案/" class="excerpt-link">Read More...</a>
+      </p>
+      
+    </section>
+  </article>
+  
+  <article class="post">
+    <header class="post-header">
+      <span class="post-meta">
+      <time datetime="2015-03-22T18:06:48.000Z" itemprop="datePublished">
+          2015-03-23
+      </time>
+    
+    
+    | 
+    <a href='/tags/mobile-ios/'>mobile, ios</a>
+    
+    
+</span>
+      <h2 class="post-title"><a href="/2015/03/23/2014-11-02-iOS下页面滚动卡顿问题/">iOS下页面滚动卡顿问题</a></h2>
+    </header>
+    <section class="post-excerpt">
+      <p>
+      
+        一向iOS下表现比Android优秀，而这种情况却变成了Android下更好。问题如下：比如有一个页面，我先做如下处理，把无线端浏览器里的页面滚动效果去掉：
+
+document.addEventListener("touchstart", disabledTouchScroll);
+function disabledTouchScroll(event){
+    if(event.target.tagName.toLowerCase()
+      
+      </p>
+      
+      <p>
+          <a href="/2015/03/23/2014-11-02-iOS下页面滚动卡顿问题/" class="excerpt-link">Read More...</a>
+      </p>
+      
+    </section>
+  </article>
+  
+  <article class="post">
+    <header class="post-header">
+      <span class="post-meta">
+      <time datetime="2015-03-22T18:06:48.000Z" itemprop="datePublished">
+          2015-03-23
+      </time>
+    
+    
+    | 
+    <a href='/tags/mobile-easeljs-微信-clientHeight/'>mobile, easeljs, 微信, clientHeight</a>
+    
+    
+</span>
+      <h2 class="post-title"><a href="/2015/03/23/2014-10-14-关于微信中clientHeight的问题/">关于微信中clientHeight的问题</a></h2>
+    </header>
+    <section class="post-excerpt">
+      <p>
+      
+        微信已经到6.0版本了，貌似bug越来越多，从开始无意中发现进入朋友圈会出问题，直到代码层面的。
+首先要说的是，如果你做适配性质的应用的话，比如横竖屏都适配的情况下，这个时候我们可能要经过orientation去判断手机当前所处的横竖状态，如果发现手机横过来了，我们可能需要对canvas进行一些调整，就是要通过
+document.documentElement.clientWidthdocument.documentElement.cl
+      
+      </p>
+      
+      <p>
+          <a href="/2015/03/23/2014-10-14-关于微信中clientHeight的问题/" class="excerpt-link">Read More...</a>
+      </p>
+      
+    </section>
+  </article>
+  
+  <article class="post">
+    <header class="post-header">
+      <span class="post-meta">
+      <time datetime="2015-03-22T18:06:48.000Z" itemprop="datePublished">
+          2015-03-23
+      </time>
+    
+    
+    | 
+    <a href='/tags/mobile-easeljs/'>mobile, easeljs</a>
+    
+    
+</span>
+      <h2 class="post-title"><a href="/2015/03/23/2014-10-14-关于Easeljs的Click事件/">关于Easeljs的Click事件</a></h2>
+    </header>
+    <section class="post-excerpt">
+      <p>
+      
+        其实没有很好的解决方案，为了不让页面滚动，一般会设置
+createjs.Touch.enable(stage);但同样会带出来的问题是，在Android下的，一次click事件的触发会被执行两次，目前我临时解决办法，就只能先不设置上面的那句代码，哪位有更好解决办法的麻烦指教下，在这先谢过了～
+
+      
+      </p>
+      
+      <p>
+          <a href="/2015/03/23/2014-10-14-关于Easeljs的Click事件/" class="excerpt-link">Read More...</a>
+      </p>
+      
+    </section>
+  </article>
+  
+  <article class="post">
+    <header class="post-header">
+      <span class="post-meta">
+      <time datetime="2015-03-22T18:06:48.000Z" itemprop="datePublished">
+          2015-03-23
+      </time>
+    
+    
+    | 
+    <a href='/tags/mobile-无线端-html-兼容性-js/'>mobile, 无线端, html, 兼容性, js</a>
+    
+    
+</span>
+      <h2 class="post-title"><a href="/2015/03/23/2014-07-24-无线端页面兼容性(不定期更新)/">无线端页面兼容性(不定期更新)</a></h2>
+    </header>
+    <section class="post-excerpt">
+      <p>
+      
+        最近开发微信的一个页面发现移动端还是有些兼容性问题的，但并非ie6时代的那种恶心到暴的问题，只是大公司在实现w3c标准时的一些细节处理的不同。因为之前做的html5游戏，头部使用的是
+
+这个设置，犯懒就直接复制粘贴了，看了一下ios上一切正常，又用android手机上的chrome看了一下，也正常，就觉得ok了。但后来有测试同学发现，用android微信打开的话，页面上的字特别小，我试了各种方法，比如修改字体单位，通过设备密度来重新计算
+      
+      </p>
+      
+      <p>
+          <a href="/2015/03/23/2014-07-24-无线端页面兼容性(不定期更新)/" class="excerpt-link">Read More...</a>
+      </p>
+      
+    </section>
+  </article>
+  
+  <article class="post">
+    <header class="post-header">
+      <span class="post-meta">
+      <time datetime="2015-03-22T18:06:48.000Z" itemprop="datePublished">
+          2015-03-23
+      </time>
+    
+    
+    | 
+    <a href='/tags/google-protobuffers-protobuf-xcode-compile-all-platform/'>google, protobuffers, protobuf, xcode, compile, all platform</a>
+    
+    
+</span>
+      <h2 class="post-title"><a href="/2015/03/23/2014-07-14-google+ProtoBuffers+compile+for+Xcode+5.1.1/">google ProtoBuffers compile for Xcode 5.1.1</a></h2>
+    </header>
+    <section class="post-excerpt">
+      <p>
+      
+        之前折腾很久，编译的是protobuf-objc的版本。现在改用cocos2dx，所以必须得把这东西编译成c++版本，各种坑啊，弄的我快吐了，这反倒还windows下的简单多了。好了，大概说一下方法吧。
+这里我们采用github上一位大神写的脚本来进行下载最新的protobuffers以及编译，为何？方便呗。你要想折腾，那你就跟我这些天一样，来回编去吧。
+链接地址：https://gist.github.com/BennettSmith
+      
+      </p>
+      
+      <p>
+          <a href="/2015/03/23/2014-07-14-google+ProtoBuffers+compile+for+Xcode+5.1.1/" class="excerpt-link">Read More...</a>
+      </p>
+      
+    </section>
+  </article>
+  
+  <article class="post">
+    <header class="post-header">
+      <span class="post-meta">
+      <time datetime="2015-03-22T18:06:48.000Z" itemprop="datePublished">
+          2015-03-23
+      </time>
+    
+    
+    | 
+    <a href='/tags/EaselJS-CreateJS-screen-adapt-retina-mobile/'>EaselJS, CreateJS, screen adapt, retina, mobile</a>
+    
+    
+</span>
+      <h2 class="post-title"><a href="/2015/03/23/2014-07-11-EaselJS(CreateJS)屏幕适配/">EaselJS(CreateJS)屏幕适配</a></h2>
+    </header>
+    <section class="post-excerpt">
+      <p>
+      
+        EaselJS(CreateJS)本身不进行任何的屏幕适配工作，所以必须要我们自己解决。google了老半天也没找到合适的解决方案，老外使用屏幕适配的场景貌似跟我们国内的有所不同，事实上我也拿着那些代码试了各种情况，都不合适，而EaselJS官方所讨论的，只是根据设备像素比（devicePixelRatio）的一种计算方式，但事实上，我们想要解决的毕竟只是显示的问题，所以，我们只要拿设备的屏幕尺寸，更确切来讲，应该是容器的尺寸，来跟我们
+      
+      </p>
+      
+      <p>
+          <a href="/2015/03/23/2014-07-11-EaselJS(CreateJS)屏幕适配/" class="excerpt-link">Read More...</a>
+      </p>
+      
+    </section>
+  </article>
+  
+  <article class="post">
+    <header class="post-header">
+      <span class="post-meta">
+      <time datetime="2015-03-22T18:06:48.000Z" itemprop="datePublished">
+          2015-03-23
+      </time>
+    
+    
+    | 
+    <a href='/tags/beego-crossdomain/'>beego, crossdomain</a>
+    
+    
+</span>
+      <h2 class="post-title"><a href="/2015/03/23/2014-06-06-Swift内存管理之循环引用/">Swift内存管理--循环引用</a></h2>
+    </header>
+    <section class="post-excerpt">
+      <p>
+      
+        循环引用一直是所有开发语言最烦的事情，特别是像c/c++这些低级语言，而其它高级语言，诸如Java之类的，因为有了垃圾回收机制，很好的让开发者从循环引用中解脱出来。
+而Swift中的内存管理，使用的是Objective-C的ARC，本质与Java之类的语言的垃圾回收机制是不同的，所以我们还是需要做一些小动作，来避免循环引用的问题。从ARC的面世，即带入了强、弱引用的概念，而在Objective-C中，强引用(strong)即为非ARC中
+      
+      </p>
+      
+      <p>
+          <a href="/2015/03/23/2014-06-06-Swift内存管理之循环引用/" class="excerpt-link">Read More...</a>
       </p>
       
     </section>
@@ -69,8 +374,8 @@ Quick StartCreate a new p
   
   <nav class="pagination" role="pagination">
     
-    <span class="page-number">Page 1 of 1</span>
-    
+    <span class="page-number">Page 1 of 3</span>
+    <a class="older-posts" href="/archives/2015/page/2/">Older Posts →</a>
   </nav>
 </main>
 
@@ -79,16 +384,16 @@ Quick StartCreate a new p
 <footer class="site-footer">
   
   <div class="inner">
-     <section class="copyright">All content copyright <a href="/blog/">Abel Lee's Blog</a> &copy; 2014 &bull; All rights reserved.</section>
+     <section class="copyright">All content copyright <a href="/">Abel Lee's Blog</a> &copy; 2014 &bull; All rights reserved.</section>
      <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://zespia.tw/hexo/">Hexo</a></section>
   </div>
 </footer>
 
       <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
-<script type="text/javascript" src="/blog/js/jquery.fitvids.js"></script>
-<script type="text/javascript" src="/blog/js/index.js"></script>
-<script type="text/javascript" src="/blog/js/menu.js"></script>
+<script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="/js/index.js"></script>
+<script type="text/javascript" src="/js/menu.js"></script>
 
 
 

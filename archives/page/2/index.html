@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <title>Abel Lee&#39;s Blog</title>
+  <meta name="description" content="" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="MobileOptimized" content="320" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+  <link rel="stylesheet" type="text/css" href="/css/style.css" />
+  <meta name="generator" content="Abel Lee's Blog">
+
+  
+  
+  
+
+  
+</head>
+
+<!--
+<body class="home-template">
+-->
+<body class="home-template">
+<div id="perspective" class="perspective effect-movedown">
+  <div class="container">
+    <!-- wrapper -->
+    <div class="wrapper">
+
+      <header class="site-head"  style="background: #24282b url(/img/img-bg.jpg) 0 -20%" >
+    <div class="vertical">
+        <div class="site-head-content inner">
+             <a class="blog-logo" href="/"><img src="/img/logo.svg" alt="Blog Logo"/></a> 
+            <h1 class="blog-title">Abel Lee's Blog</h1>
+            <h2 class="blog-description"><button id="showMenu">Show Menu</button></h2>
+        </div>
+    </div>
+</header>
+
+      
+<main class="content" role="main">
+  
+  <article class="post">
+    <header class="post-header">
+      <span class="post-meta">
+      <time datetime="2015-03-22T18:06:48.000Z" itemprop="datePublished">
+          2015-03-23
+      </time>
+    
+    
+    | 
+    <a href='/tags/beego-crossdomain/'>beego, crossdomain</a>
+    
+    
+</span>
+      <h2 class="post-title"><a href="/2015/03/23/2014-03-20-关于beego中访问crossdomain/">关于beego中访问crossdomain</a></h2>
+    </header>
+    <section class="post-excerpt">
+      <p>
+      
+        在ActionScript中，访问服务端的静态资源的时候，比如图片、文件等的时候，都需要服务端指定一个crossdomain.xml，以告诉flashplayer其访问权限，以前服务端用的都是Apache之类的，估计这部分工具已经做掉了，但现在用golang，貌似什么都要自己来，折腾了好几个小时，来回在beego官方文档里找，也没有关于这方面的说法，唯一跟我们的需求相关的，就是关于静态文件的处理，测试了一下，貌似只能显示图片，可能是be
+      
+      </p>
+      
+      <p>
+          <a href="/2015/03/23/2014-03-20-关于beego中访问crossdomain/" class="excerpt-link">Read More...</a>
+      </p>
+      
+    </section>
+  </article>
+  
+  <article class="post">
+    <header class="post-header">
+      <span class="post-meta">
+      <time datetime="2015-03-22T18:06:48.000Z" itemprop="datePublished">
+          2015-03-23
+      </time>
+    
+    
+    | 
+    <a href='/tags/iOS-绘图-CALayer/'>iOS, 绘图, CALayer</a>
+    
+    
+</span>
+      <h2 class="post-title"><a href="/2015/03/23/2013-11-05-iOS绘图/">iOS绘图</a></h2>
+    </header>
+    <section class="post-excerpt">
+      <p>
+      
+        关于在iOS中绘图，目标是将每次从touchesBegan开始的笔迹绘制到不同的CALayer中，并且对该CALayer进行保存，即可实现类似PhotoShop一样的undo与redo，并且可以分图层设置样式。
+好吧，上代码
+
+    - (id)initWithFrame:(CGRect)frame
+    {
+        self = [super initWithFrame:frame];
+        if (self) 
+      
+      </p>
+      
+      <p>
+          <a href="/2015/03/23/2013-11-05-iOS绘图/" class="excerpt-link">Read More...</a>
+      </p>
+      
+    </section>
+  </article>
+  
+  <article class="post">
+    <header class="post-header">
+      <span class="post-meta">
+      <time datetime="2015-03-22T18:06:48.000Z" itemprop="datePublished">
+          2015-03-23
+      </time>
+    
+    
+    | 
+    <a href='/tags/golang-bytes/'>golang, bytes</a>
+    
+    
+</span>
+      <h2 class="post-title"><a href="/2015/03/23/2013-09-19-golang-bytes/">golang的bytes</a></h2>
+    </header>
+    <section class="post-excerpt">
+      <p>
+      
+        前几天在弄golang的验证码的时候，找了一个现成的类 captcha这个类很方便的解决了golang的验证码问题，但事实上是，我又很费劲的去熟悉了一番golang的images库，也啃了一下这个类的代码，受益良多，让我了解了文字在内存中的存在形式。但有个问题是，这个类对验证码的保存并不是使用session，因为它是一个是独立的工具类，不依赖于任何框架，但我希望用session来保存验证，所以无奈只能改！  
+我用的是Revel这个框架
+      
+      </p>
+      
+      <p>
+          <a href="/2015/03/23/2013-09-19-golang-bytes/" class="excerpt-link">Read More...</a>
+      </p>
+      
+    </section>
+  </article>
+  
+  <article class="post">
+    <header class="post-header">
+      <span class="post-meta">
+      <time datetime="2015-03-22T18:06:48.000Z" itemprop="datePublished">
+          2015-03-23
+      </time>
+    
+    
+    | 
+    <a href='/tags/beego-orm/'>beego, orm</a>
+    
+    
+</span>
+      <h2 class="post-title"><a href="/2015/03/23/2013-09-16-有趣的beego+orm/">有趣的beego orm</a></h2>
+    </header>
+    <section class="post-excerpt">
+      <p>
+      
+        设：
+数据库：test_db表：test_table
+main.go  
+
+    package main
+    import(
+        "github.com/astaxie/beego"
+        "github.com/astaxie/beego/orm"
+    )
+
+    type TestTable struct{
+        Id int
+        Account string
+       
+      
+      </p>
+      
+      <p>
+          <a href="/2015/03/23/2013-09-16-有趣的beego+orm/" class="excerpt-link">Read More...</a>
+      </p>
+      
+    </section>
+  </article>
+  
+  <article class="post">
+    <header class="post-header">
+      <span class="post-meta">
+      <time datetime="2015-03-22T18:06:48.000Z" itemprop="datePublished">
+          2015-03-23
+      </time>
+    
+    
+    | 
+    <a href='/tags/node-webkit/'>node-webkit</a>
+    
+    
+</span>
+      <h2 class="post-title"><a href="/2015/03/23/2014-12-26-node-webkit发布后flash无法被调用的坑/">node-webkit发布后flash无法被调用的坑</a></h2>
+    </header>
+    <section class="post-excerpt">
+      <p>
+      
+        继上一篇，继续自挖自跳，在做flash开发的时候，我们都知道，如果swf在本地运行的话，是有信任目录的问题的，也就是说，如果你的swf里有涉及as3访问网络资源之类的，你需要把该swf运行的本地目录地址加入到FlashPlayerTrust目录下才行，同样的，上一篇解决了swf加载的问题，同时也要解决信任目录的问题。而我们打包node-webkit应用后，用户具体安装在哪个目录我们是无法确定的，所以必须要获取应用目录地址，下面是代码：
+
+      
+      </p>
+      
+      <p>
+          <a href="/2015/03/23/2014-12-26-node-webkit发布后flash无法被调用的坑/" class="excerpt-link">Read More...</a>
+      </p>
+      
+    </section>
+  </article>
+  
+  <article class="post">
+    <header class="post-header">
+      <span class="post-meta">
+      <time datetime="2015-03-22T18:06:48.000Z" itemprop="datePublished">
+          2015-03-23
+      </time>
+    
+    
+    | 
+    <a href='/tags/资源打包-Flash-Game/'>资源打包 Flash Game</a>
+    
+    
+</span>
+      <h2 class="post-title"><a href="/2015/03/23/2013-09-16-发布一个资源打包工具（EmbedResourceGenerator+For+Mac）/">发布一个资源打包工具(EmbedResourceGenerator For Mac)</a></h2>
+    </header>
+    <section class="post-excerpt">
+      <p>
+      
+        一个资源打包工具，下面是截图：
+
+功能可能有一定的局限性，
+因为主要是指定在游戏制作过程中的素材打包。
+但平时其它一些UI打包其实也可以用这个工具打包，可以方便不少，不用打开Flash一个一个的导库 然后再命名link name啥的。
+功能点一：界面上的”生成”是按工具的打包方式打包的，可以打包png/jpg
+通过flash的压缩方式压缩，生成的swf会比一般的flash打包的swf要小
+功能点二：界面上的”使用Flash导出”，基本发
+      
+      </p>
+      
+      <p>
+          <a href="/2015/03/23/2013-09-16-发布一个资源打包工具（EmbedResourceGenerator+For+Mac）/" class="excerpt-link">Read More...</a>
+      </p>
+      
+    </section>
+  </article>
+  
+  <article class="post">
+    <header class="post-header">
+      <span class="post-meta">
+      <time datetime="2015-03-22T18:06:48.000Z" itemprop="datePublished">
+          2015-03-23
+      </time>
+    
+    
+    | 
+    <a href='/tags/ios/'>ios</a>
+    
+    
+</span>
+      <h2 class="post-title"><a href="/2015/03/23/2013-09-16-单词排序表格/">单词排序表格</a></h2>
+    </header>
+    <section class="post-excerpt">
+      <p>
+      
+        
+    -（NSArray*）sections{
+        if(!sections){
+            sections ＝ [[[self.words allKeys] sortedArrayUsingSelector:@selector(compare:)] retain];
+            return sections;
+        }
+    }
+
+      
+      </p>
+      
+      <p>
+          <a href="/2015/03/23/2013-09-16-单词排序表格/" class="excerpt-link">Read More...</a>
+      </p>
+      
+    </section>
+  </article>
+  
+  <article class="post">
+    <header class="post-header">
+      <span class="post-meta">
+      <time datetime="2015-03-22T18:06:48.000Z" itemprop="datePublished">
+          2015-03-23
+      </time>
+    
+    
+    | 
+    <a href='/tags/ios-keychain-objective-c/'>ios keychain objective-c</a>
+    
+    
+</span>
+      <h2 class="post-title"><a href="/2015/03/23/2013-09-16-关于ios的keychain的理解/">关于ios的keychain的理解</a></h2>
+    </header>
+    <section class="post-excerpt">
+      <p>
+      
+        先上相关代码
+首先添加Security.frameworks  
+
+    import 
+
+    static NSString* defaultService = @"default_server";
+    - (void)addSecurityItem
+    {
+         NSString* account = @"abellee";
+         NSString* password = @"123456";
+
+      
+      </p>
+      
+      <p>
+          <a href="/2015/03/23/2013-09-16-关于ios的keychain的理解/" class="excerpt-link">Read More...</a>
+      </p>
+      
+    </section>
+  </article>
+  
+  <article class="post">
+    <header class="post-header">
+      <span class="post-meta">
+      <time datetime="2015-03-22T18:06:48.000Z" itemprop="datePublished">
+          2015-03-23
+      </time>
+    
+    
+    | 
+    <a href='/tags/as3-优化/'>as3 优化</a>
+    
+    
+</span>
+      <h2 class="post-title"><a href="/2015/03/23/2013-09-16-关于N个多相同Button共处的优化方案/">关于N个多相同Button共处的优化方案</a></h2>
+    </header>
+    <section class="post-excerpt">
+      <p>
+      
+        假设同一个界面中，
+有一堆的功能按钮，完全相同，只是指针的数据不同，
+这时候可以采用类似cacheAsBitmap的方式去处理
+首先, Button的所有状态的皮肤都需要是取自同一处的BitmapData
+把BitmapData装到Bitmap里给Button设置相应状态的皮肤
+然后新建一个继承自Sprite的类：BitmapButton
+添加 MouseEvent.ROLL_OVER、MouseEvent.ROLL_OUT、Event
+      
+      </p>
+      
+      <p>
+          <a href="/2015/03/23/2013-09-16-关于N个多相同Button共处的优化方案/" class="excerpt-link">Read More...</a>
+      </p>
+      
+    </section>
+  </article>
+  
+  <article class="post">
+    <header class="post-header">
+      <span class="post-meta">
+      <time datetime="2015-03-22T18:06:48.000Z" itemprop="datePublished">
+          2015-03-23
+      </time>
+    
+    
+    | 
+    <a href='/tags/beego-Router/'>beego Router</a>
+    
+    
+</span>
+      <h2 class="post-title"><a href="/2015/03/23/2013-09-16-beego自定义Router规则/">beego自定义Router规则</a></h2>
+    </header>
+    <section class="post-excerpt">
+      <p>
+      
+        官方的文档里各种符号被无视掉- -！害我卡了半天。。直到后来看到作者在某个gist上帖出来的，才发现，还是在这备注下吧- -！comments: truefeatured: true
+
+    beego.Router("/news/:all", &controllers.RController{})
+    //match /news/path/to/123.html :all= path/to/123.html
+    beego.
+      
+      </p>
+      
+      <p>
+          <a href="/2015/03/23/2013-09-16-beego自定义Router规则/" class="excerpt-link">Read More...</a>
+      </p>
+      
+    </section>
+  </article>
+  
+  <nav class="pagination" role="pagination">
+    <a class="newer-posts" href="/archives/">← Newer Posts</a>
+    <span class="page-number">Page 2 of 3</span>
+    <a class="older-posts" href="/archives/page/3/">Older Posts →</a>
+  </nav>
+</main>
+
+
+      
+<footer class="site-footer">
+  
+  <div class="inner">
+     <section class="copyright">All content copyright <a href="/">Abel Lee's Blog</a> &copy; 2014 &bull; All rights reserved.</section>
+     <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://zespia.tw/hexo/">Hexo</a></section>
+  </div>
+</footer>
+
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="/js/index.js"></script>
+<script type="text/javascript" src="/js/menu.js"></script>
+
+
+
+
+
+  </div>
+</div>
+
+<nav  class="outer-nav top horizontal">
+
+          <a class="icon-home"  href="/"><span>Home</span></a>
+
+          <a class="icon-news"  href="/archive"><span>Archive</span></a>
+
+          <a class="icon-image"  href="/images"><span>Images</span></a>
+
+          <a class="icon-wiki"  href="/wiki/2014-10-28-wiki/"><span>Wiki</span></a>
+
+          <a class="icon-Favorites"  href="/favorites"><span>Favorites</span></a>
+
+          <a class="icon-mail"  href="/about/2014-09-11-mabao/"><span>Contact</span></a>
+
+</nav>
+
+</div>
+</body>
+</html>

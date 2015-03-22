@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <title>Abel Lee&#39;s Blog</title>
+  <meta name="description" content="" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="MobileOptimized" content="320" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+  <link rel="stylesheet" type="text/css" href="/css/style.css" />
+  <meta name="generator" content="Abel Lee's Blog">
+
+  
+  
+  
+
+  
+</head>
+
+<!--
+<body class="home-template">
+-->
+<body class="home-template">
+<div id="perspective" class="perspective effect-movedown">
+  <div class="container">
+    <!-- wrapper -->
+    <div class="wrapper">
+
+      <header class="site-head"  style="background: #24282b url(/img/img-bg.jpg) 0 -20%" >
+    <div class="vertical">
+        <div class="site-head-content inner">
+             <a class="blog-logo" href="/"><img src="/img/logo.svg" alt="Blog Logo"/></a> 
+            <h1 class="blog-title">Abel Lee's Blog</h1>
+            <h2 class="blog-description"><button id="showMenu">Show Menu</button></h2>
+        </div>
+    </div>
+</header>
+
+      
+<main class="content" role="main">
+  
+  <article class="post">
+    <header class="post-header">
+      <span class="post-meta">
+      <time datetime="2015-03-22T18:06:48.000Z" itemprop="datePublished">
+          2015-03-23
+      </time>
+    
+    
+    | 
+    <a href='/tags/iOS-绘图-CALayer/'>iOS, 绘图, CALayer</a>
+    
+    
+</span>
+      <h2 class="post-title"><a href="/2015/03/23/2013-11-05-iOS绘图/">iOS绘图</a></h2>
+    </header>
+    <section class="post-excerpt">
+      <p>
+      
+        关于在iOS中绘图，目标是将每次从touchesBegan开始的笔迹绘制到不同的CALayer中，并且对该CALayer进行保存，即可实现类似PhotoShop一样的undo与redo，并且可以分图层设置样式。
+好吧，上代码
+
+    - (id)initWithFrame:(CGRect)frame
+    {
+        self = [super initWithFrame:frame];
+        if (self) 
+      
+      </p>
+      
+      <p>
+          <a href="/2015/03/23/2013-11-05-iOS绘图/" class="excerpt-link">Read More...</a>
+      </p>
+      
+    </section>
+  </article>
+  
+  <article class="post">
+    <header class="post-header">
+      <span class="post-meta">
+      <time datetime="2015-03-22T18:06:48.000Z" itemprop="datePublished">
+          2015-03-23
+      </time>
+    
+    
+    | 
+    <a href='/tags/ios/'>ios</a>
+    
+    
+</span>
+      <h2 class="post-title"><a href="/2015/03/23/2013-09-16-单词排序表格/">单词排序表格</a></h2>
+    </header>
+    <section class="post-excerpt">
+      <p>
+      
+        
+    -（NSArray*）sections{
+        if(!sections){
+            sections ＝ [[[self.words allKeys] sortedArrayUsingSelector:@selector(compare:)] retain];
+            return sections;
+        }
+    }
+
+      
+      </p>
+      
+      <p>
+          <a href="/2015/03/23/2013-09-16-单词排序表格/" class="excerpt-link">Read More...</a>
+      </p>
+      
+    </section>
+  </article>
+  
+  <article class="post">
+    <header class="post-header">
+      <span class="post-meta">
+      <time datetime="2015-03-22T18:06:48.000Z" itemprop="datePublished">
+          2015-03-23
+      </time>
+    
+    
+    | 
+    <a href='/tags/ios-keychain-objective-c/'>ios keychain objective-c</a>
+    
+    
+</span>
+      <h2 class="post-title"><a href="/2015/03/23/2013-09-16-关于ios的keychain的理解/">关于ios的keychain的理解</a></h2>
+    </header>
+    <section class="post-excerpt">
+      <p>
+      
+        先上相关代码
+首先添加Security.frameworks  
+
+    import 
+
+    static NSString* defaultService = @"default_server";
+    - (void)addSecurityItem
+    {
+         NSString* account = @"abellee";
+         NSString* password = @"123456";
+
+      
+      </p>
+      
+      <p>
+          <a href="/2015/03/23/2013-09-16-关于ios的keychain的理解/" class="excerpt-link">Read More...</a>
+      </p>
+      
+    </section>
+  </article>
+  
+  <article class="post">
+    <header class="post-header">
+      <span class="post-meta">
+      <time datetime="2015-03-22T18:06:48.000Z" itemprop="datePublished">
+          2015-03-23
+      </time>
+    
+    
+    | 
+    <a href='/tags/UIButton-selected-Objective-C/'>UIButton selected Objective-C</a>
+    
+    
+</span>
+      <h2 class="post-title"><a href="/2015/03/23/2013-09-16-UIButton设置selected后的点击效果/">UIButton设置selected后的点击效果</a></h2>
+    </header>
+    <section class="post-excerpt">
+      <p>
+      
+        当我们想创建一个自定义皮肤的按钮时，
+
+    UIButton* btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [btn setBackgroundImage:(UIImage*) forState:UIControlStateNormal];
+
+
+如果我们想要一个selected的按钮，
+
+    [btn setBackgroundImage:(UIImage*) 
+      
+      </p>
+      
+      <p>
+          <a href="/2015/03/23/2013-09-16-UIButton设置selected后的点击效果/" class="excerpt-link">Read More...</a>
+      </p>
+      
+    </section>
+  </article>
+  
+  <article class="post">
+    <header class="post-header">
+      <span class="post-meta">
+      <time datetime="2015-03-22T18:06:48.000Z" itemprop="datePublished">
+          2015-03-23
+      </time>
+    
+    
+    | 
+    <a href='/tags/gcd/'>gcd</a>
+    
+    
+</span>
+      <h2 class="post-title"><a href="/2015/03/23/2013-09-16-GCD参考[翻译]/">GCD参考[翻译]</a></h2>
+    </header>
+    <section class="post-excerpt">
+      <p>
+      
+        原文链接任务相关方法创建与管理队列
+    dispatch_get_global_queue
+    dispatch_get_main_queue
+    dispatch_queue_create
+    dispatch_get_current_queue
+    dispatch_queue_get_label
+    dispatch_set_target_queue
+    dispatch_main
+
+
+
+队列化任务的分
+      
+      </p>
+      
+      <p>
+          <a href="/2015/03/23/2013-09-16-GCD参考[翻译]/" class="excerpt-link">Read More...</a>
+      </p>
+      
+    </section>
+  </article>
+  
+  <article class="post">
+    <header class="post-header">
+      <span class="post-meta">
+      <time datetime="2015-03-22T18:06:48.000Z" itemprop="datePublished">
+          2015-03-23
+      </time>
+    
+    
+    | 
+    <a href='/tags/CoreData-Objective-C/'>CoreData Objective-C</a>
+    
+    
+</span>
+      <h2 class="post-title"><a href="/2015/03/23/2013-09-16-CoreData使用笔记/">CoreData使用笔记</a></h2>
+    </header>
+    <section class="post-excerpt">
+      <p>
+      
+        作一下记录，以供以后reload - -！！！
+以下是通过一个command line tool的project来说明CoreData中的使用的
+command line tool是创建自OS X的Application
+我使用mysql的库，直接连接到mysql，把一些死数据读到CoreData的sqlite文件里，
+然后再把这个sqlite文件移至ios项目里，以达到部分数据与应用捆绑发布的目的。
+CoreData的基础使用方法在i
+      
+      </p>
+      
+      <p>
+          <a href="/2015/03/23/2013-09-16-CoreData使用笔记/" class="excerpt-link">Read More...</a>
+      </p>
+      
+    </section>
+  </article>
+  
+  <nav class="pagination" role="pagination">
+    
+    <span class="page-number">Page 1 of 1</span>
+    
+  </nav>
+</main>
+
+
+      
+<footer class="site-footer">
+  
+  <div class="inner">
+     <section class="copyright">All content copyright <a href="/">Abel Lee's Blog</a> &copy; 2014 &bull; All rights reserved.</section>
+     <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://zespia.tw/hexo/">Hexo</a></section>
+  </div>
+</footer>
+
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="/js/index.js"></script>
+<script type="text/javascript" src="/js/menu.js"></script>
+
+
+
+
+
+  </div>
+</div>
+
+<nav  class="outer-nav top horizontal">
+
+          <a class="icon-home"  href="/"><span>Home</span></a>
+
+          <a class="icon-news"  href="/archive"><span>Archive</span></a>
+
+          <a class="icon-image"  href="/images"><span>Images</span></a>
+
+          <a class="icon-wiki"  href="/wiki/2014-10-28-wiki/"><span>Wiki</span></a>
+
+          <a class="icon-Favorites"  href="/favorites"><span>Favorites</span></a>
+
+          <a class="icon-mail"  href="/about/2014-09-11-mabao/"><span>Contact</span></a>
+
+</nav>
+
+</div>
+</body>
+</html>
