@@ -44,7 +44,7 @@
 <main class="content" role="main">
   <article class="post">
     <span class="post-meta">
-      <time datetime="2015-03-22T18:06:48.000Z" itemprop="datePublished">
+      <time datetime="2015-03-22T18:29:49.000Z" itemprop="datePublished">
           2015-03-23
       </time>
     
@@ -60,13 +60,7 @@
 <p>但至少工具们都没支持，</p>
 <p>只能手动输入了。</p>
 <p>在生成的配置文件，也就是在<code>应用名-app.xml</code>的<code>&lt;initialWindow&gt;</code>节点下，</p>
-<p>增加：  </p>
-<pre>
-    <requesteddisplayresolution>
-    high
-    </requesteddisplayresolution>
-</pre>
-
+<p>增加：<br><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;requestedDisplayResolution&gt;</span></span><br><span class="line">	<span class="keyword">high</span></span><br><span class="line"><span class="tag">&lt;/requestedDisplayResolution&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>就OK了~</p>
 
     </section>
@@ -98,20 +92,20 @@
   </article>
   <nav class="pagination" role="pagination">
     
-    <a class="newer-posts" href="/2015/03/23/2013-09-16-各大视频网站的视频解析（SWF地址）/">
-        ← 各大视频网站的视频解析（SWF地址）
-    </a>
-    
     <span class="icon-logo">•</span>
     
-    <a class="older-posts" href="/2015/03/23/2014-12-20-node-webkit无法加载flash的解决方案/">
-        node-webkit无法加载flash的解决方案 →
+    <a class="older-posts" href="/2015/03/23/2013-09-16-CoreData使用笔记/">
+        CoreData使用笔记 →
     </a>
     
 </nav>
 
   <div id="comment" class="comments-area">
     <h4 class="title"><a href="#disqus_comments" name="disqus_comments">Comments</a></h4>
+    
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
     
 </div>
 
@@ -133,6 +127,18 @@
 <script type="text/javascript" src="/js/index.js"></script>
 <script type="text/javascript" src="/js/menu.js"></script>
 
+
+<script type="text/javascript">
+    var disqus_shortname = 'abellee';
+
+    (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
 
 
 
