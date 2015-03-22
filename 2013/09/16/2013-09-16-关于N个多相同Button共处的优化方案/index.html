@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <title>关于N个多相同Button共处的优化方案 | Abel Lee&#39;s Blog</title>
+  <meta name="description" content="" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="MobileOptimized" content="320" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+  <link rel="stylesheet" type="text/css" href="/css/style.css" />
+  <meta name="generator" content="Abel Lee's Blog">
+
+  
+  
+  
+
+  
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body class="home-template">
+<div id="perspective" class="perspective effect-movedown">
+  <div class="container">
+    <!-- wrapper -->
+    <div class="wrapper">
+
+      <header class="site-head"  style="background: #24282b url(/img/img-bg.jpg) 0 -20%" >
+    <div class="vertical">
+        <div class="site-head-content inner">
+             <a class="blog-logo" href="/"><img src="/img/logo.svg" alt="Blog Logo"/></a> 
+            <h1 class="blog-title">Abel Lee's Blog</h1>
+            <h2 class="blog-description"><button id="showMenu">Show Menu</button></h2>
+        </div>
+    </div>
+</header>
+
+      
+
+<main class="content" role="main">
+  <article class="post">
+    <span class="post-meta">
+      <time datetime="2013-09-15T16:00:00.000Z" itemprop="datePublished">
+          2013-09-16
+      </time>
+    
+    
+    | 
+    <a href='/tags/as3-优化/'>as3 优化</a>
+    
+    
+</span>
+    <h1 class="post-title">关于N个多相同Button共处的优化方案</h1>
+    <section class="post-content">
+      <p>假设同一个界面中，</p>
+<p>有一堆的功能按钮，完全相同，只是指针的数据不同，</p>
+<p>这时候可以采用类似cacheAsBitmap的方式去处理</p>
+<p>首先, Button的所有状态的皮肤都需要是取自同一处的BitmapData</p>
+<p>把BitmapData装到Bitmap里给Button设置相应状态的皮肤</p>
+<p>然后新建一个继承自Sprite的类：BitmapButton</p>
+<p>添加 <strong>MouseEvent.ROLL_OVER、MouseEvent.ROLL_OUT、Event.CHANGE</strong></p>
+<p>如果 <strong>Button.toggle = false</strong> 的情况下，</p>
+<p>非常轻松，在ROLL_OVER里addChild(btn);</p>
+<p>在ROLL_OUT里removeChild(btn);</p>
+<p>在removeChild之前，取得按钮upSkin的皮肤，</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">btn.getStyle(<span class="string">"upSkin"</span>);</span><br></pre></td></tr></table></figure>
+<p>是一个Bitmap</p>
+<p>然后addChild(Bitmap);</p>
+<p>也就是说，当鼠标离开这个视图的时候，我们把按钮移除掉，显示鼠标离开按钮那时候的状态的图片，也就是upSkin的图片。</p>
+<p>当ROLL_OVER的时候 把这张图片remove掉 再次添加回这个Button</p>
+<p>但如果Button.toggle = true的时候</p>
+<p>这时候我们需要记录按钮的状态，在Event.CHANGE里判断，</p>
+<p>按钮是否已经selected，并且记录下来，</p>
+<p>当下一次ROLL_OVER的时候，判断已保存的状态并恢复回来。</p>
+<p>这样有个好处是，不管你这个界面里有多少处用到这个按钮的地方，</p>
+<p>对于按钮本身来说 它永远都只是一个存在的实例，只是在不同的容器中来回跑而已</p>
+<p>我们也不用再次的创建它了。</p>
+<p>再者，在当按钮被移除，并添加按钮当前状态的图片时，</p>
+<p>由于我们是取自于按钮当前状态的Bitmap皮肤里的bitmapData</p>
+<p>都只是在用同一个bitmapData</p>
+<p>假设界面里有100处用到一个一模一样的按钮的地方，</p>
+<p>如果不作以上处理，只是在设置按钮皮肤的时候，让Bitmap总是取同一个BitmapData</p>
+<p>并且设置了按钮的4个不同状态，</p>
+<p>也就是说 100个按钮用到的资源分别是：</p>
+<p>100个按钮 + 4个BitmapData</p>
+<p>而如果作以上处理 100个按钮用到的资源就变为：</p>
+<p>1个按钮 + 4个BitmapData</p>
+<p>其它产生的数据基本可以忽略不记了。。</p>
+
+    </section>
+    <footer class="post-footer">
+      <section class="author">
+    <h4>Abel Lee</h4>
+    <p></p>
+</section>
+      <section class="share">
+    <h4>Share this post</h4>
+    <a class="icon-sina-weibo" href="http://v.t.sina.com.cn/share/share.php?title= ?url=http://www.iabel.com/2013/09/16/2013-09-16-关于N个多相同Button共处的优化方案/" target="_blank">
+        <span class="hidden">weibo</span>
+    </a>
+    <a class="icon-twitter" href="http://twitter.com/share?url=http://www.iabel.com/2013/09/16/2013-09-16-关于N个多相同Button共处的优化方案/"
+       onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+    </a>
+    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://www.iabel.com/2013/09/16/2013-09-16-关于N个多相同Button共处的优化方案/"
+       onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+    </a>
+    <a class="icon-google-plus" href="https://plus.google.com/share?url=http://www.iabel.com/2013/09/16/2013-09-16-关于N个多相同Button共处的优化方案/"
+       onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+    </a>
+</section>
+
+    </footer>
+  </article>
+  <nav class="pagination" role="pagination">
+    
+    <a class="newer-posts" href="../2013-09-16-关于ios的keychain的理解/">
+        ← 关于ios的keychain的理解
+    </a>
+    
+    <span class="icon-logo">•</span>
+    
+    <a class="older-posts" href="../2013-09-16-beego自定义Router规则/">
+        beego自定义Router规则 →
+    </a>
+    
+</nav>
+
+  <div id="comment" class="comments-area">
+    <h4 class="title"><a href="#disqus_comments" name="disqus_comments">Comments</a></h4>
+    
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+    
+</div>
+
+</main>
+
+
+      
+<footer class="site-footer">
+  
+  <div class="inner">
+     <section class="copyright">All content copyright <a href="/">Abel Lee's Blog</a> &copy; 2014 &bull; All rights reserved.</section>
+     <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://zespia.tw/hexo/">Hexo</a></section>
+  </div>
+</footer>
+
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="/js/index.js"></script>
+<script type="text/javascript" src="/js/menu.js"></script>
+
+
+<script type="text/javascript">
+    var disqus_shortname = 'abellee';
+
+    (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+  </div>
+</div>
+
+<nav  class="outer-nav top horizontal">
+
+          <a class="icon-home"  href="../../../..//"><span>首页</span></a>
+
+          <a class="icon-news"  href="../../../..//archives"><span>归档</span></a>
+
+          <a class="icon-image"  href="../../../..//images"><span>图片</span></a>
+
+          <a class="icon-wiki"  href="../../../..//categories"><span>分类</span></a>
+
+</nav>
+
+</div>
+</body>
+</html>

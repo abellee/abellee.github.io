@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <title>Abel Lee&#39;s Blog</title>
+  <meta name="description" content="" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="MobileOptimized" content="320" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+  <link rel="stylesheet" type="text/css" href="/css/style.css" />
+  <meta name="generator" content="Abel Lee's Blog">
+
+  
+  
+  
+
+  
+</head>
+
+<!--
+<body class="home-template">
+-->
+<body class="home-template">
+<div id="perspective" class="perspective effect-movedown">
+  <div class="container">
+    <!-- wrapper -->
+    <div class="wrapper">
+
+      <header class="site-head"  style="background: #24282b url(/img/img-bg.jpg) 0 -20%" >
+    <div class="vertical">
+        <div class="site-head-content inner">
+             <a class="blog-logo" href="/"><img src="/img/logo.svg" alt="Blog Logo"/></a> 
+            <h1 class="blog-title">Abel Lee's Blog</h1>
+            <h2 class="blog-description"><button id="showMenu">Show Menu</button></h2>
+        </div>
+    </div>
+</header>
+
+      
+<main class="content" role="main">
+  
+  <article class="post">
+    <header class="post-header">
+      <span class="post-meta">
+      <time datetime="2014-12-25T16:48:55.000Z" itemprop="datePublished">
+          2014-12-26
+      </time>
+    
+    
+    | 
+    <a href='/tags/node-webkit/'>node-webkit</a>
+    
+    
+</span>
+      <h2 class="post-title"><a href="/2014/12/26/2014-12-26-node-webkit发布后flash无法被调用的坑/">node-webkit发布后flash无法被调用的坑</a></h2>
+    </header>
+    <section class="post-excerpt">
+      <p>
+      
+        继上一篇，继续自挖自跳，在做flash开发的时候，我们都知道，如果swf在本地运行的话，是有信任目录的问题的，也就是说，如果你的swf里有涉及as3访问网络资源之类的，你需要把该swf运行的本地目录地址加入到FlashPlayerTrust目录下才行，同样的，上一篇解决了swf加载的问题，同时也要解决信任目录的问题。而我们打包node-webkit应用后，用户具体安装在哪个目录我们是无法确定的，所以必须要获取应用目录地址，下面是代码：
+
+      
+      </p>
+      
+      <p>
+          <a href="/2014/12/26/2014-12-26-node-webkit发布后flash无法被调用的坑/" class="excerpt-link">详细...</a>
+      </p>
+      
+    </section>
+  </article>
+  
+  <article class="post">
+    <header class="post-header">
+      <span class="post-meta">
+      <time datetime="2014-12-19T16:48:55.000Z" itemprop="datePublished">
+          2014-12-20
+      </time>
+    
+    
+    | 
+    <a href='/tags/node-webkit/'>node-webkit</a>
+    
+    
+</span>
+      <h2 class="post-title"><a href="/2014/12/20/2014-12-20-node-webkit无法加载flash的解决方案/">node-webkit无法加载flash的解决方案</a></h2>
+    </header>
+    <section class="post-excerpt">
+      <p>
+      
+        之前都是直接在Mac下做的node-webkit开发，都没发现flash无法加载的问题，其实准确来讲，是压根儿也没怎么用过flash。
+这些天在折腾XMPP的开发，外框架用的是node-webkit，通讯部分用的是flash，理所当然的就设置了plugins为true，但运行后显示couldn’t load plug-in，开始觉得，会不会因为我是直接用ST运行的缘故，搜了一下，官方github上就有issue讨论此问题的，都说把fla
+      
+      </p>
+      
+      <p>
+          <a href="/2014/12/20/2014-12-20-node-webkit无法加载flash的解决方案/" class="excerpt-link">详细...</a>
+      </p>
+      
+    </section>
+  </article>
+  
+  <nav class="pagination" role="pagination">
+    
+    <span class="page-number">Page 1 of 1</span>
+    
+  </nav>
+</main>
+
+
+      
+<footer class="site-footer">
+  
+  <div class="inner">
+     <section class="copyright">All content copyright <a href="/">Abel Lee's Blog</a> &copy; 2014 &bull; All rights reserved.</section>
+     <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://zespia.tw/hexo/">Hexo</a></section>
+  </div>
+</footer>
+
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="/js/index.js"></script>
+<script type="text/javascript" src="/js/menu.js"></script>
+
+
+<script type="text/javascript">
+    var disqus_shortname = 'abellee';
+
+    (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+  </div>
+</div>
+
+<nav  class="outer-nav top horizontal">
+
+          <a class="icon-home"  href="../../..//"><span>首页</span></a>
+
+          <a class="icon-news"  href="../../..//archives"><span>归档</span></a>
+
+          <a class="icon-image"  href="../../..//images"><span>图片</span></a>
+
+          <a class="icon-wiki"  href="../../..//categories"><span>分类</span></a>
+
+</nav>
+
+</div>
+</body>
+</html>

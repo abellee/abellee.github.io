@@ -45,8 +45,8 @@
   <article class="post">
     <header class="post-header">
       <span class="post-meta">
-      <time datetime="2015-03-22T18:06:48.000Z" itemprop="datePublished">
-          2015-03-23
+      <time datetime="2013-11-04T16:00:00.000Z" itemprop="datePublished">
+          2013-11-05
       </time>
     
     
@@ -55,23 +55,19 @@
     
     
 </span>
-      <h2 class="post-title"><a href="/2015/03/23/2013-11-05-iOS绘图/">iOS绘图</a></h2>
+      <h2 class="post-title"><a href="/2013/11/05/2013-11-05-iOS绘图/">iOS绘图</a></h2>
     </header>
     <section class="post-excerpt">
       <p>
       
         关于在iOS中绘图，目标是将每次从touchesBegan开始的笔迹绘制到不同的CALayer中，并且对该CALayer进行保存，即可实现类似PhotoShop一样的undo与redo，并且可以分图层设置样式。
 好吧，上代码
-
-    - (id)initWithFrame:(CGRect)frame
-    {
-        self = [super initWithFrame:frame];
-        if (self) 
+12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849- (id)initWithFram
       
       </p>
       
       <p>
-          <a href="/2015/03/23/2013-11-05-iOS绘图/" class="excerpt-link">Read More...</a>
+          <a href="/2013/11/05/2013-11-05-iOS绘图/" class="excerpt-link">详细...</a>
       </p>
       
     </section>
@@ -80,8 +76,8 @@
   <article class="post">
     <header class="post-header">
       <span class="post-meta">
-      <time datetime="2015-03-22T18:06:48.000Z" itemprop="datePublished">
-          2015-03-23
+      <time datetime="2013-09-15T16:00:00.000Z" itemprop="datePublished">
+          2013-09-16
       </time>
     
     
@@ -90,24 +86,17 @@
     
     
 </span>
-      <h2 class="post-title"><a href="/2015/03/23/2013-09-16-单词排序表格/">单词排序表格</a></h2>
+      <h2 class="post-title"><a href="/2013/09/16/2013-09-16-单词排序表格/">单词排序表格</a></h2>
     </header>
     <section class="post-excerpt">
       <p>
       
-        
-    -（NSArray*）sections{
-        if(!sections){
-            sections ＝ [[[self.words allKeys] sortedArrayUsingSelector:@selector(compare:)] retain];
-            return sections;
-        }
-    }
-
+        123456-（NSArray*）sections&#123;    if(!sections)&#123;        sections ＝ [[[self.words allKeys] sortedArrayUsingSelector:@selector(compare:)] retain];        return sections;    &#125;&#125;
       
       </p>
       
       <p>
-          <a href="/2015/03/23/2013-09-16-单词排序表格/" class="excerpt-link">Read More...</a>
+          <a href="/2013/09/16/2013-09-16-单词排序表格/" class="excerpt-link">详细...</a>
       </p>
       
     </section>
@@ -116,8 +105,8 @@
   <article class="post">
     <header class="post-header">
       <span class="post-meta">
-      <time datetime="2015-03-22T18:06:48.000Z" itemprop="datePublished">
-          2015-03-23
+      <time datetime="2013-09-15T16:00:00.000Z" itemprop="datePublished">
+          2013-09-16
       </time>
     
     
@@ -126,27 +115,19 @@
     
     
 </span>
-      <h2 class="post-title"><a href="/2015/03/23/2013-09-16-关于ios的keychain的理解/">关于ios的keychain的理解</a></h2>
+      <h2 class="post-title"><a href="/2013/09/16/2013-09-16-关于ios的keychain的理解/">关于ios的keychain的理解</a></h2>
     </header>
     <section class="post-excerpt">
       <p>
       
         先上相关代码
 首先添加Security.frameworks  
-
-    import 
-
-    static NSString* defaultService = @"default_server";
-    - (void)addSecurityItem
-    {
-         NSString* account = @"abellee";
-         NSString* password = @"123456";
-
+123456789101112131415161718192021222324252627import &lt;Security/Security.h&gt;static NSString* defaultService = @"default_server";- (void)addSecurityItem&#123;     NSString* account = @"
       
       </p>
       
       <p>
-          <a href="/2015/03/23/2013-09-16-关于ios的keychain的理解/" class="excerpt-link">Read More...</a>
+          <a href="/2013/09/16/2013-09-16-关于ios的keychain的理解/" class="excerpt-link">详细...</a>
       </p>
       
     </section>
@@ -155,8 +136,8 @@
   <article class="post">
     <header class="post-header">
       <span class="post-meta">
-      <time datetime="2015-03-22T18:06:48.000Z" itemprop="datePublished">
-          2015-03-23
+      <time datetime="2013-09-15T16:00:00.000Z" itemprop="datePublished">
+          2013-09-16
       </time>
     
     
@@ -165,25 +146,20 @@
     
     
 </span>
-      <h2 class="post-title"><a href="/2015/03/23/2013-09-16-UIButton设置selected后的点击效果/">UIButton设置selected后的点击效果</a></h2>
+      <h2 class="post-title"><a href="/2013/09/16/2013-09-16-UIButton设置selected后的点击效果/">UIButton设置selected后的点击效果</a></h2>
     </header>
     <section class="post-excerpt">
       <p>
       
         当我们想创建一个自定义皮肤的按钮时，
-
-    UIButton* btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [btn setBackgroundImage:(UIImage*) forState:UIControlStateNormal];
-
-
+12UIButton* btn = [UIButton buttonWithType:UIButtonTypeCustom];[btn setBackgroundImage:(UIImage*) forState:UIControlStateNormal];
 如果我们想要一个selected的按钮，
-
-    [btn setBackgroundImage:(UIImage*) 
+1[btn setBackgroundImage:(UIImage*) forState:UICon
       
       </p>
       
       <p>
-          <a href="/2015/03/23/2013-09-16-UIButton设置selected后的点击效果/" class="excerpt-link">Read More...</a>
+          <a href="/2013/09/16/2013-09-16-UIButton设置selected后的点击效果/" class="excerpt-link">详细...</a>
       </p>
       
     </section>
@@ -192,8 +168,8 @@
   <article class="post">
     <header class="post-header">
       <span class="post-meta">
-      <time datetime="2015-03-22T18:06:48.000Z" itemprop="datePublished">
-          2015-03-23
+      <time datetime="2013-09-15T16:00:00.000Z" itemprop="datePublished">
+          2013-09-16
       </time>
     
     
@@ -202,28 +178,18 @@
     
     
 </span>
-      <h2 class="post-title"><a href="/2015/03/23/2013-09-16-GCD参考[翻译]/">GCD参考[翻译]</a></h2>
+      <h2 class="post-title"><a href="/2013/09/16/2013-09-16-GCD参考[翻译]/">GCD参考[翻译]</a></h2>
     </header>
     <section class="post-excerpt">
       <p>
       
-        原文链接任务相关方法创建与管理队列
-    dispatch_get_global_queue
-    dispatch_get_main_queue
-    dispatch_queue_create
-    dispatch_get_current_queue
-    dispatch_queue_get_label
-    dispatch_set_target_queue
-    dispatch_main
-
-
-
-队列化任务的分
+        原文链接任务相关方法创建与管理队列1234567dispatch_get_global_queuedispatch_get_main_queuedispatch_queue_createdispatch_get_current_queuedispatch_queue_get_labeldispatch_set_target_queuedispatch_main
+队列化任务的分发GCD提供与管理你的哪个应用可以提交block（块）形式的任
       
       </p>
       
       <p>
-          <a href="/2015/03/23/2013-09-16-GCD参考[翻译]/" class="excerpt-link">Read More...</a>
+          <a href="/2013/09/16/2013-09-16-GCD参考[翻译]/" class="excerpt-link">详细...</a>
       </p>
       
     </section>
@@ -232,8 +198,8 @@
   <article class="post">
     <header class="post-header">
       <span class="post-meta">
-      <time datetime="2015-03-22T18:06:48.000Z" itemprop="datePublished">
-          2015-03-23
+      <time datetime="2013-09-15T16:00:00.000Z" itemprop="datePublished">
+          2013-09-16
       </time>
     
     
@@ -242,7 +208,7 @@
     
     
 </span>
-      <h2 class="post-title"><a href="/2015/03/23/2013-09-16-CoreData使用笔记/">CoreData使用笔记</a></h2>
+      <h2 class="post-title"><a href="/2013/09/16/2013-09-16-CoreData使用笔记/">CoreData使用笔记</a></h2>
     </header>
     <section class="post-excerpt">
       <p>
@@ -257,7 +223,7 @@ CoreData的基础使用方法在i
       </p>
       
       <p>
-          <a href="/2015/03/23/2013-09-16-CoreData使用笔记/" class="excerpt-link">Read More...</a>
+          <a href="/2013/09/16/2013-09-16-CoreData使用笔记/" class="excerpt-link">详细...</a>
       </p>
       
     </section>
@@ -307,17 +273,13 @@ CoreData的基础使用方法在i
 
 <nav  class="outer-nav top horizontal">
 
-          <a class="icon-home"  href="/"><span>Home</span></a>
+          <a class="icon-home"  href="../..//"><span>首页</span></a>
 
-          <a class="icon-news"  href="/archive"><span>Archive</span></a>
+          <a class="icon-news"  href="../..//archives"><span>归档</span></a>
 
-          <a class="icon-image"  href="/images"><span>Images</span></a>
+          <a class="icon-image"  href="../..//images"><span>图片</span></a>
 
-          <a class="icon-wiki"  href="/wiki/2014-10-28-wiki/"><span>Wiki</span></a>
-
-          <a class="icon-Favorites"  href="/favorites"><span>Favorites</span></a>
-
-          <a class="icon-mail"  href="/about/2014-09-11-mabao/"><span>Contact</span></a>
+          <a class="icon-wiki"  href="../..//categories"><span>分类</span></a>
 
 </nav>
 

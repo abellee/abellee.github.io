@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <title>关于ios的keychain的理解 | Abel Lee&#39;s Blog</title>
+  <meta name="description" content="" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="MobileOptimized" content="320" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+  <link rel="stylesheet" type="text/css" href="/css/style.css" />
+  <meta name="generator" content="Abel Lee's Blog">
+
+  
+  
+  
+
+  
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body class="home-template">
+<div id="perspective" class="perspective effect-movedown">
+  <div class="container">
+    <!-- wrapper -->
+    <div class="wrapper">
+
+      <header class="site-head"  style="background: #24282b url(/img/img-bg.jpg) 0 -20%" >
+    <div class="vertical">
+        <div class="site-head-content inner">
+             <a class="blog-logo" href="/"><img src="/img/logo.svg" alt="Blog Logo"/></a> 
+            <h1 class="blog-title">Abel Lee's Blog</h1>
+            <h2 class="blog-description"><button id="showMenu">Show Menu</button></h2>
+        </div>
+    </div>
+</header>
+
+      
+
+<main class="content" role="main">
+  <article class="post">
+    <span class="post-meta">
+      <time datetime="2013-09-15T16:00:00.000Z" itemprop="datePublished">
+          2013-09-16
+      </time>
+    
+    
+    | 
+    <a href='/tags/ios-keychain-objective-c/'>ios keychain objective-c</a>
+    
+    
+</span>
+    <h1 class="post-title">关于ios的keychain的理解</h1>
+    <section class="post-content">
+      <p>先上相关代码</p>
+<p>首先添加Security.frameworks  </p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &lt;Security/Security.h&gt;</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> NSString* defaultService = @<span class="string">"default_server"</span>;</span><br><span class="line">- (<span class="typename">void</span>)addSecurityItem</span><br><span class="line">&#123;</span><br><span class="line">     NSString* account = @<span class="string">"abellee"</span>;</span><br><span class="line">     NSString* password = @<span class="string">"123456"</span>;</span><br><span class="line">     NSData* accountData = [account <span class="string">dataUsingEncoding:</span><span class="string">NSUTF8StringEncoding:</span>NSUTF8StringEncoding];</span><br><span class="line">     NSData* passwordData = [password <span class="string">dataUsingEncoding:</span>NSUTF8StringEncoding];</span><br><span class="line">      </span><br><span class="line">     NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];</span><br><span class="line">     [dict <span class="string">setObject:</span>(id)kSecClassGenericPassword <span class="string">forKey:</span>(id)kSecClass];</span><br><span class="line">    [dict <span class="string">setObject:</span>(id)kSecAttrAccessibleWhenUnlocked <span class="string">forKey:</span>(id)kSecAttrAccessible];</span><br><span class="line">    [dict <span class="string">setObject:</span> accountData <span class="string">forKey:</span>(id)kSecAttrGeneric];</span><br><span class="line">    [dict <span class="string">setObject:</span> accountData <span class="string">forKey:</span>(id)kSecAttrAccount];</span><br><span class="line">    [dict <span class="string">setObject:</span> defaultService <span class="string">forKey:</span>(id)kSecAttrService];</span><br><span class="line">    [dict <span class="string">setObject:</span> passwordData <span class="string">forKey:</span>(id)kSecValueData];</span><br><span class="line"></span><br><span class="line">    OSStatus status = SecItemAdd((CFDictionaryRef)dict, NULL);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(status == noError)&#123;</span><br><span class="line">           <span class="comment">//add success</span></span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">          <span class="comment">//add failed</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中的kSecAttrAccount跟kSecValueData是一一对应的 就相当于帐号密码，<br>你也可以理解为这就是一个大字典，把kSecAttrAccount的值设置为你想定义的一个key，<br>把kSecValueData的值设置为key的value，<br>然后往同一个kSecAttrService里add这些数据，这样就可以添加多组数据了。</p>
+<p>以下是获取的代码：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">NSMutableDictionary* dict = [[NSMutableDictionaryalloc] init];</span><br><span class="line">[dict <span class="string">setObject:</span>(id)<span class="string">kSecClassGenericPasswordforKey:</span>(id)kSecClass];</span><br><span class="line">[dict <span class="string">setObject:</span>(id)<span class="string">kSecAttrAccessibleWhenUnlockedforKey:</span>(id)kSecAttrAccessible];</span><br><span class="line">[dict <span class="string">setObject:</span><span class="string">identifyforKey:</span>(id)kSecAttrService];</span><br><span class="line">[dict <span class="string">setObject:</span>(id)<span class="string">kCFBooleanTrueforKey:</span>(id)kSecReturnData];</span><br><span class="line">[dict <span class="string">setObject:</span>(id)<span class="string">kCFBooleanTrueforKey:</span>kSecReturnAttributes];</span><br><span class="line">[dict <span class="string">setObject:</span>(id)<span class="string">kSecMatchLimitAllforKey:</span>(id)kSecMatchLimit];</span><br><span class="line">    </span><br><span class="line">CFArrayRef returnData = nil;</span><br><span class="line">    </span><br><span class="line">OSStatus status = SecItemCopyMatching((CFDictionaryRef)dict, (CFTypeRef *)&amp;returnData);</span><br><span class="line">    <span class="keyword">if</span> (status == noErr) &#123;</span><br><span class="line">        <span class="keyword">if</span> (returnData) &#123;</span><br><span class="line">            NSArray* tempArray = (NSArray*)returnData;</span><br><span class="line">            NSLog(@<span class="string">"%@&gt;&gt;&gt;&gt;&gt;%@"</span>, [[NSStringalloc] <span class="string">initWithData:</span>[[tempArray <span class="string">objectAtIndex:</span><span class="number">0</span>] <span class="string">objectForKey:</span>kSecAttrAccount] <span class="string">encoding:</span>NSUTF8StringEncoding], [[NSStringalloc] <span class="string">initWithData:</span>[[tempArray <span class="string">objectAtIndex:</span><span class="number">1</span>] <span class="string">objectForKey:</span>kSecAttrAccount] <span class="string">encoding:</span>NSUTF8StringEncoding]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>添加了多少组键值对，最后returnData的数组里就有多少个NSDictionary。</p>
+<p>不过搞不明白kSecUseItemList到底怎么设置，看官方的文档是说设置这个键的值为一个CFArrayRef 里面的数据都是CFDataRef 并且保持类型都一样，但没成功，哪位同学实验成功的话请指点下喔。。</p>
+
+    </section>
+    <footer class="post-footer">
+      <section class="author">
+    <h4>Abel Lee</h4>
+    <p></p>
+</section>
+      <section class="share">
+    <h4>Share this post</h4>
+    <a class="icon-sina-weibo" href="http://v.t.sina.com.cn/share/share.php?title= ?url=http://www.iabel.com/2013/09/16/2013-09-16-关于ios的keychain的理解/" target="_blank">
+        <span class="hidden">weibo</span>
+    </a>
+    <a class="icon-twitter" href="http://twitter.com/share?url=http://www.iabel.com/2013/09/16/2013-09-16-关于ios的keychain的理解/"
+       onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+    </a>
+    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://www.iabel.com/2013/09/16/2013-09-16-关于ios的keychain的理解/"
+       onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+    </a>
+    <a class="icon-google-plus" href="https://plus.google.com/share?url=http://www.iabel.com/2013/09/16/2013-09-16-关于ios的keychain的理解/"
+       onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+    </a>
+</section>
+
+    </footer>
+  </article>
+  <nav class="pagination" role="pagination">
+    
+    <a class="newer-posts" href="../2013-09-16-单词排序表格/">
+        ← 单词排序表格
+    </a>
+    
+    <span class="icon-logo">•</span>
+    
+    <a class="older-posts" href="../2013-09-16-关于N个多相同Button共处的优化方案/">
+        关于N个多相同Button共处的优化方案 →
+    </a>
+    
+</nav>
+
+  <div id="comment" class="comments-area">
+    <h4 class="title"><a href="#disqus_comments" name="disqus_comments">Comments</a></h4>
+    
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+    
+</div>
+
+</main>
+
+
+      
+<footer class="site-footer">
+  
+  <div class="inner">
+     <section class="copyright">All content copyright <a href="/">Abel Lee's Blog</a> &copy; 2014 &bull; All rights reserved.</section>
+     <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://zespia.tw/hexo/">Hexo</a></section>
+  </div>
+</footer>
+
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="/js/index.js"></script>
+<script type="text/javascript" src="/js/menu.js"></script>
+
+
+<script type="text/javascript">
+    var disqus_shortname = 'abellee';
+
+    (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+  </div>
+</div>
+
+<nav  class="outer-nav top horizontal">
+
+          <a class="icon-home"  href="../../../..//"><span>首页</span></a>
+
+          <a class="icon-news"  href="../../../..//archives"><span>归档</span></a>
+
+          <a class="icon-image"  href="../../../..//images"><span>图片</span></a>
+
+          <a class="icon-wiki"  href="../../../..//categories"><span>分类</span></a>
+
+</nav>
+
+</div>
+</body>
+</html>

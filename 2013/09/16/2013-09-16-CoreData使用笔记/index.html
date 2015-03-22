@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <title>CoreData使用笔记 | Abel Lee&#39;s Blog</title>
+  <meta name="description" content="" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="MobileOptimized" content="320" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+  <link rel="stylesheet" type="text/css" href="/css/style.css" />
+  <meta name="generator" content="Abel Lee's Blog">
+
+  
+  
+  
+
+  
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body class="home-template">
+<div id="perspective" class="perspective effect-movedown">
+  <div class="container">
+    <!-- wrapper -->
+    <div class="wrapper">
+
+      <header class="site-head"  style="background: #24282b url(/img/img-bg.jpg) 0 -20%" >
+    <div class="vertical">
+        <div class="site-head-content inner">
+             <a class="blog-logo" href="/"><img src="/img/logo.svg" alt="Blog Logo"/></a> 
+            <h1 class="blog-title">Abel Lee's Blog</h1>
+            <h2 class="blog-description"><button id="showMenu">Show Menu</button></h2>
+        </div>
+    </div>
+</header>
+
+      
+
+<main class="content" role="main">
+  <article class="post">
+    <span class="post-meta">
+      <time datetime="2013-09-15T16:00:00.000Z" itemprop="datePublished">
+          2013-09-16
+      </time>
+    
+    
+    | 
+    <a href='/tags/CoreData-Objective-C/'>CoreData Objective-C</a>
+    
+    
+</span>
+    <h1 class="post-title">CoreData使用笔记</h1>
+    <section class="post-content">
+      <p>作一下记录，以供以后reload - -！！！</p>
+<p>以下是通过一个command line tool的project来说明CoreData中的使用的</p>
+<p>command line tool是创建自OS X的Application</p>
+<p>我使用mysql的库，直接连接到mysql，把一些死数据读到CoreData的sqlite文件里，</p>
+<p>然后再把这个sqlite文件移至ios项目里，以达到部分数据与应用捆绑发布的目的。</p>
+<p>CoreData的基础使用方法在ios或mac os x里都是一样的 所以你可以无缝的在这两种工程里来回迁移，只需要做部分调整，下面会提到。</p>
+<p>创建好command line tool工程后 把除了main方法外的所有方法删除</p>
+<p>在main上面添加以下两个方法：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> NSManagedObjectModel *managedObjectModel()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">static</span> NSManagedObjectModel *model = <span class="literal">nil</span>;</span><br><span class="line">    <span class="keyword">if</span> (model != <span class="literal">nil</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> model;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">NSString</span> *path = <span class="string">@"****"</span>; <span class="comment">//此处的*号替换成你xcdatamodeld的名称</span></span><br><span class="line">    path = [path stringByDeletingPathExtension];</span><br><span class="line">    <span class="built_in">NSURL</span> *modelURL = [<span class="built_in">NSURL</span> fileURLWithPath:[path stringByAppendingPathExtension:<span class="string">@"momd"</span>]];</span><br><span class="line">    model = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];</span><br><span class="line">    <span class="keyword">return</span> model;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> NSManagedObjectContext *managedObjectContext()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">static</span> NSManagedObjectContext *context = <span class="literal">nil</span>;</span><br><span class="line">    <span class="keyword">if</span> (context != <span class="literal">nil</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> context;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">@autoreleasepool</span> &#123;</span><br><span class="line">        context = [[NSManagedObjectContext alloc] init];</span><br><span class="line">        NSPersistentStoreCoordinator *coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:managedObjectModel()];</span><br><span class="line">        [context setPersistentStoreCoordinator:coordinator];</span><br><span class="line">        <span class="built_in">NSString</span> *STORE_TYPE = NSSQLiteStoreType;</span><br><span class="line">        <span class="built_in">NSString</span> *path = [[NSProcessInfo processInfo] arguments][<span class="number">0</span>];</span><br><span class="line">        path = [path stringByDeletingPathExtension];</span><br><span class="line">        path = <span class="string">@"****"</span>; <span class="comment">//此处的*号替换成你xcdatamodeld的名称</span></span><br><span class="line">        <span class="built_in">NSURL</span> *url = [<span class="built_in">NSURL</span> fileURLWithPath:[path stringByAppendingPathExtension:<span class="string">@"sqlite"</span>]];</span><br><span class="line">        <span class="built_in">NSError</span> *error;</span><br><span class="line">        NSPersistentStore *newStore = [coordinator addPersistentStoreWithType:STORE_TYPE configuration:<span class="literal">nil</span> URL:url options:<span class="literal">nil</span> error:&amp;error];</span><br><span class="line">        <span class="keyword">if</span> (newStore == <span class="literal">nil</span>) &#123;</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@"Store Configuration Failure %@"</span>, ([error localizedDescription] != <span class="literal">nil</span>) ? [error localizedDescription] : <span class="string">@"Unknown Error"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> context;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后main里面：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="typename">int</span> main(<span class="typename">int</span> argc, const <span class="typename">char</span> * argv[])</span><br><span class="line">&#123;</span><br><span class="line">    <span class="annotation">@autoreleasepool</span> &#123;</span><br><span class="line">        <span class="comment">// Create the managed object context</span></span><br><span class="line">        NSManagedObjectContext *context = managedObjectContext();</span><br><span class="line">        mysqlDB* mysql = [[mysqlDB alloc] init];</span><br><span class="line">        [mysql <span class="string">connectHost:</span>@<span class="string">"127.0.0.1"</span> <span class="string">connectUser:</span>@<span class="string">"mysql帐号"</span> <span class="string">connectPassword:</span>@<span class="string">"mysql密码"</span> <span class="string">connectName:</span>@<span class="string">"连接的数据名称"</span>];</span><br><span class="line">        [mysql <span class="string">query:</span>@<span class="string">"select * from 数据库名称"</span>];</span><br><span class="line">        NSMutableArray* results = [mysql <span class="string">fetchAllRows:</span>[mysql store_result]];</span><br><span class="line">        <span class="keyword">for</span> (NSMutableArray* row <span class="keyword">in</span> results) &#123;</span><br><span class="line">                  <span class="comment">//.....</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// Custom code here...</span></span><br><span class="line">        <span class="comment">// Save the managed object context</span></span><br><span class="line">        NSError *error = nil;</span><br><span class="line">        <span class="keyword">if</span> (![context <span class="string">save:</span>&amp;error]) &#123;</span><br><span class="line">            NSLog(@<span class="string">"Error while saving %@"</span>, ([error localizedDescription] != nil) ? [error localizedDescription] : @<span class="string">"Unknown Error"</span>);</span><br><span class="line">            exit(<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面mysqlDB类是我自己建的，做的就是方便拿MYSQL_RES的数据而已 你完全可以自己按自己习惯写一个，关键是CoreData中的读写操作。</p>
+<p>假设我们现在在xcdatamodeld中创建一个名叫Test的Entity，其中有两个属性：name和age，生成NSManagedObject子类后在main中import “Test.h”</p>
+<p>1：创建NSEntityDescription</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Test* <span class="built_in">test</span> = [NSEntityDescription insertNewObjectForEntityForName: @<span class="string">"Test"</span> <span class="keyword">in</span>ManagedObjectContext: context];</span><br></pre></td></tr></table></figure>
+<p>我们通过方法名称大概可以了解，这就是CoreData作insert操作的方法。</p>
+<p>2：设置数据</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[<span class="built_in">test</span> <span class="built_in">set</span>Name:@<span class="string">"abellee"</span>];</span><br><span class="line">[<span class="built_in">test</span> <span class="built_in">set</span>Age:<span class="number">10</span>]; //在xcdatamodeld中设置attribute的类型的时候 如果设置为<span class="built_in">integer</span>32 那这里就需要使用NSNumber 如果什么都不设置 这里就是int</span><br></pre></td></tr></table></figure>
+<p>好了 就这样</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">NSError *<span class="built_in">error</span> = <span class="keyword">nil</span>;</span><br><span class="line">  <span class="keyword">if</span> (![context save:&amp;<span class="built_in">error</span>]) &#123;</span><br><span class="line">      NSLog(@<span class="string">"Error while saving %@"</span>, ([<span class="built_in">error</span> localizedDescription] != <span class="keyword">nil</span>) ? [<span class="built_in">error</span> localizedDescription] : @<span class="string">"Unknown Error"</span>);</span><br><span class="line">      exit(<span class="number">1</span>);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>紧接着的这一步就会把上面设置的数据保存到CoreData中了，也就是sqlite文件中。</p>
+<p>————————————————————————————————————————</p>
+<p>然后是有关relationship的使用，我这里直接讲一对多的情况，因为一对一的情况很简单，随便找资料大把。</p>
+<p>当你给一个Entity创建一个relationship的时候 你可以勾选To-Many，这样这个relationship就可以包含很多条数据，</p>
+<p>例如：一个公司下有很多部门，创建一个Entity叫Company， 再创建另一个Entity叫Department，然后在Company里Add Relationship，把这个relationship指向Department，再勾选属性面板上To-Many，这样，就可以让你一条Company数据里携带多条Department数据。</p>
+<p>当生成这两个Entity类后，Company类里会有一个NSSet，就是Department的数据。起初我很疑惑的是，CoreData怎么把我要录入的数据准确的关联在一起，但可能当时脑子发热，因为你会按关系存入数据，CoreData自然会记住这些关系，读的时候自然就有据可寻了。</p>
+<p>好了，代码说话：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">#<span class="keyword">import</span> <span class="string">"Company.h"</span></span><br><span class="line"></span><br><span class="line">#<span class="keyword">import</span> <span class="string">"Department.h"</span></span><br><span class="line"></span><br><span class="line">NSMutableArray* companies = ...; <span class="comment">//假定你已经把所有公司的数据读出来了</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//快速枚举</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(NSMutableArray* entry <span class="keyword">in</span> companies)&#123;</span><br><span class="line"></span><br><span class="line">         Company* company = [NSEntityDescription <span class="string">insertNewObjectForEntityForName:</span> @<span class="string">"Company"</span> <span class="string">inManagedObjectContext:</span> context]; <span class="comment">//一条NSEntityDescription就会入sqlite中写入一条数据</span></span><br><span class="line"></span><br><span class="line">         <span class="comment">//设置公司数据</span></span><br><span class="line"></span><br><span class="line">        [mysql <span class="string">query:</span>[NSString <span class="string">stringWithFormat:</span>@<span class="string">"select * from department where company_id=%d"</span>,  [entry <span class="string">objectAtIndex:</span>公司数据id索引位置]]];</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">         NSMutableSet* mutableSet = [NSMutableSet <span class="string">setWithCapacity:</span><span class="number">0</span>]; <span class="comment">//1：NSMutableSet继承自NSSet。 2：setWithCapacity:0 如果不够，会自动增加容量。</span></span><br><span class="line"></span><br><span class="line">         <span class="comment">//读取mysql_store_result数据，转为NSMutableArray* departments</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(NSMutableArray* row <span class="keyword">in</span> departments)&#123;</span><br><span class="line"></span><br><span class="line">                 Department* department = [NSEntityDescription <span class="string">insertNewObjectForEntityForName:</span> @<span class="string">"Department"</span> <span class="string">inManagedObjectContext:</span> context];</span><br><span class="line"></span><br><span class="line">                 <span class="comment">//设置department中数据</span></span><br><span class="line"></span><br><span class="line">                <span class="comment">//添加到mutableSet中</span></span><br><span class="line"></span><br><span class="line">               [mutableSet <span class="string">addObject:</span>department];</span><br><span class="line"></span><br><span class="line">         &#125;</span><br><span class="line"></span><br><span class="line">         [company <span class="string">addDepartment:</span> mutableSet];</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样，CoreData就会自动把公司跟部门的数据存在两个指定的表中去。</p>
+<p>再来说读：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">NSFetchRequest* fetchRequest = [NSFetchRequest <span class="string">fetchRequestWithEntityName:</span>@<span class="string">"Company"</span>];</span><br><span class="line"></span><br><span class="line">NSError* error;</span><br><span class="line"></span><br><span class="line">NSArray* companies = [context <span class="string">executeFetchRequest:</span>fetchRequest <span class="string">error:</span>&amp;error];</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(Company* company <span class="keyword">in</span> companies)&#123;</span><br><span class="line"></span><br><span class="line">     <span class="comment">//......</span></span><br><span class="line"></span><br><span class="line">     <span class="keyword">for</span>(Department* department <span class="keyword">in</span> [company departments])&#123;</span><br><span class="line"></span><br><span class="line">             <span class="comment">//......</span></span><br><span class="line"></span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>——————————————————————————————————————</p>
+<p>在用CoreData的时候，创建Entity都是针对于.xcdatamodeld文件来做的，但不知道为啥我之前创建的这个Model文件变成了Mapping Model文件，也就是.xcdatamodel，然后纠结着想把Mapping Model转到Model，因为里面创建了很多Entity 不可能再重新搞一遍 会疯的- -！所以找google问，万能的stack overflow里查到说可以用Editor-&gt;Add Model…来创建，我照做了，但是比如我现在的.xcdatamodel文件名叫a.xcdatamodel，操作后就会多出一个a 2.xcdatamodel 再个一起存在于a.xcdatamodeld下，有洁癖的我怎么能容忍这样的事情发生，然后这样搞搞 那样搞搞，运行总报错，具体什么错误就不多扯了，是NSPersistentStore的一个错误。然后又纠结一番后发现有一个比较SB但完全不用动脑的机械方法可以达到目的。</p>
+<p>1：重新创建一个CoreData的Model文件，例如命名成:a.xcdatamodeld</p>
+<p>2：在Model文件上右键，点击show in finder</p>
+<p>3：在finder的Model文件上再次右角，点击 “显示包内容”</p>
+<p>4：里面你就可以找到这个Model文件的Mappding Model文件，也就是a.xcdatamodel，在它上再次右角，还是选择“显示包内容”</p>
+<p>5：到这已经是最里层目录了，里面有一个content文件，用文本工具打开，同样的方法打开你事先创建好Entity的Mapping Model文件下的content，把里面所有entry节点，外加底部所有的elements节点都复制到a.xcdatamodeld下的a.xcdatamodel下的content文件里保存，再在Xcode里看一下 你就会发现全部数据都已经转移过去了。。</p>
+<p>————————————————————————————————————————</p>
+<p>当你把所有要捆绑的数据录完后，在Products下的App上右键，点击Show In Finder，然后你就能看到一个Model文件名的sqlite文件，就它了 复制他，一样操作放到ios应用下就搞定了。</p>
+
+    </section>
+    <footer class="post-footer">
+      <section class="author">
+    <h4>Abel Lee</h4>
+    <p></p>
+</section>
+      <section class="share">
+    <h4>Share this post</h4>
+    <a class="icon-sina-weibo" href="http://v.t.sina.com.cn/share/share.php?title= ?url=http://www.iabel.com/2013/09/16/2013-09-16-CoreData使用笔记/" target="_blank">
+        <span class="hidden">weibo</span>
+    </a>
+    <a class="icon-twitter" href="http://twitter.com/share?url=http://www.iabel.com/2013/09/16/2013-09-16-CoreData使用笔记/"
+       onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+    </a>
+    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://www.iabel.com/2013/09/16/2013-09-16-CoreData使用笔记/"
+       onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+    </a>
+    <a class="icon-google-plus" href="https://plus.google.com/share?url=http://www.iabel.com/2013/09/16/2013-09-16-CoreData使用笔记/"
+       onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+    </a>
+</section>
+
+    </footer>
+  </article>
+  <nav class="pagination" role="pagination">
+    
+    <a class="newer-posts" href="../2013-09-16-GCD参考[翻译]/">
+        ← GCD参考[翻译]
+    </a>
+    
+    <span class="icon-logo">•</span>
+    
+    <a class="older-posts" href="../2013-09-16-发布一个资源打包工具（EmbedResourceGenerator+For+Mac）/">
+        发布一个资源打包工具(EmbedResourceGenerator For Mac) →
+    </a>
+    
+</nav>
+
+  <div id="comment" class="comments-area">
+    <h4 class="title"><a href="#disqus_comments" name="disqus_comments">Comments</a></h4>
+    
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+    
+</div>
+
+</main>
+
+
+      
+<footer class="site-footer">
+  
+  <div class="inner">
+     <section class="copyright">All content copyright <a href="/">Abel Lee's Blog</a> &copy; 2014 &bull; All rights reserved.</section>
+     <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://zespia.tw/hexo/">Hexo</a></section>
+  </div>
+</footer>
+
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="/js/index.js"></script>
+<script type="text/javascript" src="/js/menu.js"></script>
+
+
+<script type="text/javascript">
+    var disqus_shortname = 'abellee';
+
+    (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+  </div>
+</div>
+
+<nav  class="outer-nav top horizontal">
+
+          <a class="icon-home"  href="../../../..//"><span>首页</span></a>
+
+          <a class="icon-news"  href="../../../..//archives"><span>归档</span></a>
+
+          <a class="icon-image"  href="../../../..//images"><span>图片</span></a>
+
+          <a class="icon-wiki"  href="../../../..//categories"><span>分类</span></a>
+
+</nav>
+
+</div>
+</body>
+</html>

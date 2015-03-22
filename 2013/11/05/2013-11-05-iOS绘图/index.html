@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <title>iOS绘图 | Abel Lee&#39;s Blog</title>
+  <meta name="description" content="" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="MobileOptimized" content="320" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+  <link rel="stylesheet" type="text/css" href="/css/style.css" />
+  <meta name="generator" content="Abel Lee's Blog">
+
+  
+  
+  
+
+  
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body class="home-template">
+<div id="perspective" class="perspective effect-movedown">
+  <div class="container">
+    <!-- wrapper -->
+    <div class="wrapper">
+
+      <header class="site-head"  style="background: #24282b url(/img/img-bg.jpg) 0 -20%" >
+    <div class="vertical">
+        <div class="site-head-content inner">
+             <a class="blog-logo" href="/"><img src="/img/logo.svg" alt="Blog Logo"/></a> 
+            <h1 class="blog-title">Abel Lee's Blog</h1>
+            <h2 class="blog-description"><button id="showMenu">Show Menu</button></h2>
+        </div>
+    </div>
+</header>
+
+      
+
+<main class="content" role="main">
+  <article class="post">
+    <span class="post-meta">
+      <time datetime="2013-11-04T16:00:00.000Z" itemprop="datePublished">
+          2013-11-05
+      </time>
+    
+    
+    | 
+    <a href='/tags/iOS-绘图-CALayer/'>iOS, 绘图, CALayer</a>
+    
+    
+</span>
+    <h1 class="post-title">iOS绘图</h1>
+    <section class="post-content">
+      <p>关于在iOS中绘图，目标是将每次从touchesBegan开始的笔迹绘制到不同的CALayer中，并且对该CALayer进行保存，即可实现类似PhotoShop一样的undo与redo，并且可以分图层设置样式。</p>
+<p>好吧，上代码</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">id</span>)initWithFrame:(<span class="built_in">CGRect</span>)frame</span><br><span class="line">&#123;</span><br><span class="line">   	<span class="keyword">self</span> = [<span class="keyword">super</span> initWithFrame:frame];</span><br><span class="line">   	<span class="keyword">if</span> (<span class="keyword">self</span>) &#123;</span><br><span class="line">       	[<span class="keyword">self</span> setPath:[UIBezierPath bezierPath]];<span class="comment">//设置路径</span></span><br><span class="line">       	[path setLineWidth:<span class="number">3.0</span>];			      <span class="comment">//设置线条粗细</span></span><br><span class="line">       	[path setLineCapStyle:kCGLineCapRound];  <span class="comment">//设置线条未端样式</span></span><br><span class="line">   	&#125;</span><br><span class="line">   	<span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)touchesBegan:(<span class="built_in">NSSet</span> *)touches withEvent:(UIEvent *)event</span><br><span class="line">&#123;</span><br><span class="line">   	CAShapeLayer* layer = [CAShapeLayer layer]; <span class="comment">//创建一个新的CAShapeLayer</span></span><br><span class="line">    [<span class="keyword">self</span> setCurLayer:layer];				     <span class="comment">//设置CAShapeLayer</span></span><br><span class="line">   	[<span class="keyword">self</span><span class="variable">.layer</span> addSublayer:<span class="keyword">self</span><span class="variable">.curLayer</span>];     <span class="comment">//添加CAShapeLayer到显示列表中</span></span><br><span class="line">    <span class="keyword">self</span><span class="variable">.curLayer</span><span class="variable">.delegate</span> = <span class="keyword">self</span>;</span><br><span class="line">   	[array addObject:<span class="keyword">self</span><span class="variable">.curLayer</span>];            <span class="comment">//保存该CAShapeLayer到队列中</span></span><br><span class="line">    [<span class="keyword">self</span><span class="variable">.curLayer</span> setFrame:<span class="keyword">self</span><span class="variable">.frame</span>];        <span class="comment">//设置CAShapeLayer为当前视图尺寸</span></span><br><span class="line">   </span><br><span class="line">    layer<span class="variable">.path</span> = path<span class="variable">.CGPath</span>;                   <span class="comment">//设置该CAShapeLayer所要绘制的路径，这样才能把从touchesBegan开始的所有点都绘制到新的layer上</span></span><br><span class="line">   </span><br><span class="line">    UITouch* touch = [touches anyObject];</span><br><span class="line">   	<span class="built_in">CGPoint</span> p = [touch locationInView:<span class="keyword">self</span>];</span><br><span class="line">    [path moveToPoint:p];</span><br><span class="line">    [<span class="keyword">self</span><span class="variable">.curLayer</span> setNeedsDisplay];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)touchesMoved:(<span class="built_in">NSSet</span> *)touches withEvent:(UIEvent *)event</span><br><span class="line">&#123;</span><br><span class="line">   	UITouch* touch = [touches anyObject];</span><br><span class="line">   	<span class="built_in">CGPoint</span> p = [touch locationInView:<span class="keyword">self</span>];</span><br><span class="line">   	[path addLineToPoint:p];</span><br><span class="line">   	[<span class="keyword">self</span><span class="variable">.curLayer</span> setNeedsDisplay];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)touchesEnded:(<span class="built_in">NSSet</span> *)touches withEvent:(UIEvent *)event</span><br><span class="line">&#123;</span><br><span class="line">   	UITouch* touch = [touches anyObject];</span><br><span class="line">   	<span class="built_in">CGPoint</span> p = [touch locationInView:<span class="keyword">self</span>];</span><br><span class="line">   	[path addLineToPoint:p];</span><br><span class="line">   	[<span class="keyword">self</span><span class="variable">.curLayer</span> setNeedsDisplay];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)drawRect:(<span class="built_in">CGRect</span>)rect</span><br><span class="line">&#123;</span><br><span class="line">   	[[<span class="built_in">UIColor</span> redColor] setStroke];			   <span class="comment">//当前图层中线条的颜色</span></span><br><span class="line">   	[path stroke];                            <span class="comment">//填充当前图层中已绘制的线条</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>1、上面的代码中没有<strong>undo/redo</strong>的功能，可以另外添加一个<strong>NSMutableArray</strong>，把每次新建的<strong>CAShapeLayer</strong>都存到这个数组中，<br>再添加一个<strong>UIButton</strong>，每次点击都删除<strong>NSMutableArray</strong>中最后一个<strong>CAShapeLayer</strong>并且<strong>[CAShapeLayer removeFromSuperlayer];</strong></p>
+<p>2、可以定义一个<strong>UIColor* curColor</strong>，每次设置一个新的颜色到<strong>curColor</strong>中，在<strong>drawRect</strong>方法中改成<strong>[self.curColor setStroke]</strong></p>
+<p>3、如果你设置了承载这些<strong>CALayer</strong>的<strong>UIView</strong>的<strong>backgroundColor</strong>为实色的话，每次新绘制的线条都会盖住上一次的，所以需要让<strong>CALayer</strong>的背景透明，就需要设置<strong>UIView</strong>的<strong>backgroundColor</strong>为<strong>[UIColor clearColor]</strong></p>
+<p>其它更多的效果大伙儿可以看一下官方的文档，可以为每个图层设置阴影、边框之类的样式，基本上就跟PhotoShop的图层类似了。</p>
+
+    </section>
+    <footer class="post-footer">
+      <section class="author">
+    <h4>Abel Lee</h4>
+    <p></p>
+</section>
+      <section class="share">
+    <h4>Share this post</h4>
+    <a class="icon-sina-weibo" href="http://v.t.sina.com.cn/share/share.php?title= ?url=http://www.iabel.com/2013/11/05/2013-11-05-iOS绘图/" target="_blank">
+        <span class="hidden">weibo</span>
+    </a>
+    <a class="icon-twitter" href="http://twitter.com/share?url=http://www.iabel.com/2013/11/05/2013-11-05-iOS绘图/"
+       onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+    </a>
+    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://www.iabel.com/2013/11/05/2013-11-05-iOS绘图/"
+       onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+    </a>
+    <a class="icon-google-plus" href="https://plus.google.com/share?url=http://www.iabel.com/2013/11/05/2013-11-05-iOS绘图/"
+       onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+    </a>
+</section>
+
+    </footer>
+  </article>
+  <nav class="pagination" role="pagination">
+    
+    <a class="newer-posts" href="../2014-03-20-关于beego中访问crossdomain/">
+        ← 关于beego中访问crossdomain
+    </a>
+    
+    <span class="icon-logo">•</span>
+    
+    <a class="older-posts" href="../../../09/16/2013-09-19-golang-bytes/">
+        golang的bytes →
+    </a>
+    
+</nav>
+
+  <div id="comment" class="comments-area">
+    <h4 class="title"><a href="#disqus_comments" name="disqus_comments">Comments</a></h4>
+    
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+    
+</div>
+
+</main>
+
+
+      
+<footer class="site-footer">
+  
+  <div class="inner">
+     <section class="copyright">All content copyright <a href="/">Abel Lee's Blog</a> &copy; 2014 &bull; All rights reserved.</section>
+     <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://zespia.tw/hexo/">Hexo</a></section>
+  </div>
+</footer>
+
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="/js/index.js"></script>
+<script type="text/javascript" src="/js/menu.js"></script>
+
+
+<script type="text/javascript">
+    var disqus_shortname = 'abellee';
+
+    (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+  </div>
+</div>
+
+<nav  class="outer-nav top horizontal">
+
+          <a class="icon-home"  href="../../../..//"><span>首页</span></a>
+
+          <a class="icon-news"  href="../../../..//archives"><span>归档</span></a>
+
+          <a class="icon-image"  href="../../../..//images"><span>图片</span></a>
+
+          <a class="icon-wiki"  href="../../../..//categories"><span>分类</span></a>
+
+</nav>
+
+</div>
+</body>
+</html>
