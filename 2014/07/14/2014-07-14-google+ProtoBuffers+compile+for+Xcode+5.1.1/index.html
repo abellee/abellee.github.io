@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <title>google ProtoBuffers compile for Xcode 5.1.1 | Abel Lee&#39;s Blog</title>
+  <meta name="description" content="" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="MobileOptimized" content="320" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+  <link rel="stylesheet" type="text/css" href="/css/style.css" />
+  <meta name="generator" content="Abel Lee's Blog">
+
+  
+  
+  
+
+  
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body class="home-template">
+<div id="perspective" class="perspective effect-movedown">
+  <div class="container">
+    <!-- wrapper -->
+    <div class="wrapper">
+
+      <header class="site-head"  style="background: #24282b url(/img/img-bg.jpg) 0 -20%" >
+    <div class="vertical">
+        <div class="site-head-content inner">
+             <a class="blog-logo" href="/"><img src="/img/logo.svg" alt="Blog Logo"/></a> 
+            <h1 class="blog-title">Abel Lee's Blog</h1>
+            <h2 class="blog-description"><button id="showMenu">Show Menu</button></h2>
+        </div>
+    </div>
+</header>
+
+      
+
+<main class="content" role="main">
+  <article class="post">
+    <span class="post-meta">
+      <time datetime="2014-07-14T09:13:20.000Z" itemprop="datePublished">
+          2014-07-14
+      </time>
+    
+    
+    | 
+    <a href='/tags/google-protobuffers-protobuf-xcode-compile-all-platform/'>google, protobuffers, protobuf, xcode, compile, all platform</a>
+    
+    
+</span>
+    <h1 class="post-title">google ProtoBuffers compile for Xcode 5.1.1</h1>
+    <section class="post-content">
+      <p>之前折腾很久，编译的是protobuf-objc的版本。现在改用cocos2dx，所以必须得把这东西编译成c++版本，各种坑啊，弄的我快吐了，这反倒还windows下的简单多了。好了，大概说一下方法吧。</p>
+<p>这里我们采用github上一位大神写的脚本来进行下载最新的protobuffers以及编译，为何？方便呗。你要想折腾，那你就跟我这些天一样，来回编去吧。</p>
+<p>链接地址：<a href="https://gist.github.com/BennettSmith/7150245" target="_blank" rel="external">https://gist.github.com/BennettSmith/7150245</a></p>
+<p>很简单的脚本，直接按页面上说的clone下来，运行sh脚本，你就可以去喝口咖啡，回来直接用就ok了。用这个脚本的好处是，苹果在最新的部分设备中，内置了protobuffers，并且归为了私有库，所以如果你直接从google官方下载下来编译的话，你势必要把namespace google全改掉，否则会跟苹果内置的protobuffers的namespace冲突，这个脚本已经帮我们改掉了，等脚本执行完成后各位可以随便开个头文件看一下，里面的namespace全都是google_public的。</p>
+<p>ok，编译完成后，会在该目录下生成一个protobuf的文件夹，下面包含了三个文件夹<strong>bin</strong>和 <strong>include</strong>以及<strong>lib</strong>，我们把include的文件夹路径设置到xcode中你的Project的Build Settins中的Header Search Paths中，注意，是Project 不是Target。比如/Users/{your user name}/Desktop/build-protobuf/protobuf/include，右边不要改，默认的non-recursive（非递归）即可。然后再到TARGETS-&gt;General-&gt;Linked Frameworks and Libraries，点下面的”<em>+</em>“号，再选择弹出框左下角的<em>Add Other…</em>, 把lib目录下的三个*.a文件添加进去，安装就完成了。</p>
+<p>上面提到，由于苹果在部分设备中已经内置了protobuffers，如果你是在windows下编译了.proto文件，想直接拿来用，或者你事先已经编译过了，那你还是得重新编译一下，cd到bin目录，用这里面的protoc重新编译一下你的.proto文件成.cc和.h，到这里就大功告成了！</p>
+<p>OK, That’s it!</p>
+
+    </section>
+    <footer class="post-footer">
+      <section class="author">
+    <h4>Abel Lee</h4>
+    <p></p>
+</section>
+      <section class="share">
+    <h4>Share this post</h4>
+    <a class="icon-sina-weibo" href="http://v.t.sina.com.cn/share/share.php?title= ?url=http://www.iabel.com/2014/07/14/2014-07-14-google+ProtoBuffers+compile+for+Xcode+5.1.1/" target="_blank">
+        <span class="hidden">weibo</span>
+    </a>
+    <a class="icon-twitter" href="http://twitter.com/share?url=http://www.iabel.com/2014/07/14/2014-07-14-google+ProtoBuffers+compile+for+Xcode+5.1.1/"
+       onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+    </a>
+    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://www.iabel.com/2014/07/14/2014-07-14-google+ProtoBuffers+compile+for+Xcode+5.1.1/"
+       onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+    </a>
+    <a class="icon-google-plus" href="https://plus.google.com/share?url=http://www.iabel.com/2014/07/14/2014-07-14-google+ProtoBuffers+compile+for+Xcode+5.1.1/"
+       onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+    </a>
+</section>
+
+    </footer>
+  </article>
+  <nav class="pagination" role="pagination">
+    
+    <a class="newer-posts" href="../../23/2014-07-24-无线端页面兼容性(不定期更新)/">
+        ← 无线端页面兼容性(不定期更新)
+    </a>
+    
+    <span class="icon-logo">•</span>
+    
+    <a class="older-posts" href="../../11/2014-07-11-EaselJS(CreateJS)屏幕适配/">
+        EaselJS(CreateJS)屏幕适配 →
+    </a>
+    
+</nav>
+
+  <div id="comment" class="comments-area">
+    <h4 class="title"><a href="#disqus_comments" name="disqus_comments">Comments</a></h4>
+    
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+    
+</div>
+
+</main>
+
+
+      
+<footer class="site-footer">
+  
+  <div class="inner">
+     <section class="copyright">All content copyright <a href="/">Abel Lee's Blog</a> &copy; 2014 &bull; All rights reserved.</section>
+     <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://zespia.tw/hexo/">Hexo</a></section>
+  </div>
+</footer>
+
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="/js/index.js"></script>
+<script type="text/javascript" src="/js/menu.js"></script>
+
+
+<script type="text/javascript">
+    var disqus_shortname = 'abellee';
+
+    (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+  </div>
+</div>
+
+<nav  class="outer-nav top horizontal">
+
+          <a class="icon-home"  href="../../../..//"><span>首页</span></a>
+
+          <a class="icon-news"  href="../../../..//archives"><span>归档</span></a>
+
+          <a class="icon-image"  href="../../../..//images"><span>图片</span></a>
+
+          <a class="icon-wiki"  href="../../../..//categories"><span>分类</span></a>
+
+</nav>
+
+</div>
+</body>
+</html>

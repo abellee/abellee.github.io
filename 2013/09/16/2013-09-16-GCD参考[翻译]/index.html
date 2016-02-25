@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <title>GCD参考[翻译] | Abel Lee&#39;s Blog</title>
+  <meta name="description" content="" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="MobileOptimized" content="320" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+  <link rel="stylesheet" type="text/css" href="/css/style.css" />
+  <meta name="generator" content="Abel Lee's Blog">
+
+  
+  
+  
+
+  
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body class="home-template">
+<div id="perspective" class="perspective effect-movedown">
+  <div class="container">
+    <!-- wrapper -->
+    <div class="wrapper">
+
+      <header class="site-head"  style="background: #24282b url(/img/img-bg.jpg) 0 -20%" >
+    <div class="vertical">
+        <div class="site-head-content inner">
+             <a class="blog-logo" href="/"><img src="/img/logo.svg" alt="Blog Logo"/></a> 
+            <h1 class="blog-title">Abel Lee's Blog</h1>
+            <h2 class="blog-description"><button id="showMenu">Show Menu</button></h2>
+        </div>
+    </div>
+</header>
+
+      
+
+<main class="content" role="main">
+  <article class="post">
+    <span class="post-meta">
+      <time datetime="2013-09-15T16:00:00.000Z" itemprop="datePublished">
+          2013-09-16
+      </time>
+    
+    
+    | 
+    <a href='/tags/gcd/'>gcd</a>
+    
+    
+</span>
+    <h1 class="post-title">GCD参考[翻译]</h1>
+    <section class="post-content">
+      <h1 id="原文链接"><a href="http://developer.apple.com/library/ios/#documentation/Performance/Reference/GCD_libdispatch_Ref/Reference/reference.html#//apple_ref/doc/uid/TP40008079" target="_blank" rel="external">原文链接</a></h1><h1 id="任务相关方法">任务相关方法</h1><h3 id="创建与管理队列">创建与管理队列</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">dispatch_get_global_queue</span><br><span class="line">dispatch_get_main_queue</span><br><span class="line">dispatch_queue_create</span><br><span class="line">dispatch_get_current_queue</span><br><span class="line">dispatch_queue_get_label</span><br><span class="line">dispatch_<span class="built_in">set</span>_target_queue</span><br><span class="line">dispatch_main</span><br></pre></td></tr></table></figure>
+<h3 id="队列化任务的分发">队列化任务的分发</h3><p>GCD提供与管理你的哪个应用可以提交block（块）形式的任务到先入先出（FIFO）的队列。Blocks(块)是被提交到一个完全由系统管理的一个线程池中的分发队列中执行的。无法确定一个任务执行所在的线程。GCD提供三种不同的队列：</p>
+<ul>
+<li>Main：所有任务在你的应用主线程上串行执行</li>
+<li>Concurrent：所有任务以先入先出（FIFO）的顺序出列，但是并发进行的，并且无序的结束。</li>
+<li>Serial：以先入先出（FIFO）的顺序，在同一时间只执行一个任务。</li>
+</ul>
+<p>主队列是系统自动创建的，并且与你的应用主线程相关联。你的应用程序使用一个（且仅一个）以下三种回调方法，将被提交的blocks发送到主队列:</p>
+<ul>
+<li><p>调用 dispatch_main</p>
+</li>
+<li><p>调用UIApplicationMain(iOS) 或者 NSApplicationMain(OS X)</p>
+</li>
+<li><p>在主线程上使用一个CFRunLoopRef</p>
+</li>
+</ul>
+<p>使用并发队列执行大量的并行任务。GCD自动创建三个全局于你的应用程序的并发队列，他们仅有的区域即他们的优先级。你的应用程序使用dispatch_get_global_queue方法请求这些队列。因为这些并发队列对于你的应用程序，是全局的，你不需要retain和release; retain和release对于这些队列会被忽略掉。在OS X 10.7以及更新的版本，你也可以为你自己的代码模块创建额外的并发队列。</p>
+<p>使用序列化队列以确保所有任务在可知的顺序下被执行。最好做些实验，以确定每个序列化队列的用图，就像保护一个资源或者同步锁进行。你的应用程序必须明确的创建并管理序列化队列。你的应用程序可以尽可能多的创建所需要的队列，但应该避免在多个任务需要同时执行的时候，把序列化队列（Serial）当并发队列（Concurrent）来使用。</p>
+<p><strong>注：GCD是一个C级别的API;它不捕获更高层语言所抛出的异常。你的应用程序必需在一个被提交到分发队列的block(块)返回前，捕获所有异常。</strong></p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">dispatch_async</span></span><br><span class="line">dispatch_async_f</span><br><span class="line"><span class="built_in">dispatch_sync</span></span><br><span class="line">dispatch_sync_f</span><br><span class="line">dispatch_after</span><br><span class="line">dispatch_after_f</span><br><span class="line">dispatch_apply</span><br><span class="line">dispatch_apply_f</span><br><span class="line"><span class="built_in">dispatch_once</span></span><br></pre></td></tr></table></figure>
+<h3 id="使用分发组">使用分发组</h3><p>组群块(block)可以同时处理。你的应用程序可以提交多个块并且检测他们什么时候全部执行完毕，虽然他们可能跑在不同的线程。这种方式在所有任务未完成前，将不作任何处理的时候，是非常有帮助的。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">dispatch_group_async</span><br><span class="line">dispatch_group_async_f</span><br><span class="line">dispatch_group_create</span><br><span class="line">dispatch_group_enter</span><br><span class="line">dispatch_group_leave</span><br><span class="line">dispatch_group_notify</span><br><span class="line">dispatch_group_notify_f</span><br><span class="line">dispatch_group_<span class="built_in">wait</span></span><br></pre></td></tr></table></figure>
+<h3 id="管理分发对象">管理分发对象</h3><p>GCD提供分发对象的接口于你的应用程序，就像内存管理一样管理逻辑处理，暂停以及恢复执行，定义对象上下线，以及输出任务数据。分发对象必需手动retain和release，过程中不会被垃圾回收。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">dispatch_debug</span><br><span class="line">dispatch_get_context</span><br><span class="line">dispatch_release</span><br><span class="line">dispatch_resume</span><br><span class="line">dispatch_retain</span><br><span class="line">dispatch_<span class="built_in">set</span>_context</span><br><span class="line">dispatch_<span class="built_in">set</span>_finalizer_f</span><br><span class="line">dispatch_<span class="built_in">suspend</span></span><br></pre></td></tr></table></figure>
+<h3 id="使用信号">使用信号</h3><p>————————- 改天再翻 ———————————</p>
+
+    </section>
+    <footer class="post-footer">
+      <section class="author">
+    <h4>Abel Lee</h4>
+    <p></p>
+</section>
+      <section class="share">
+    <h4>Share this post</h4>
+    <a class="icon-sina-weibo" href="http://v.t.sina.com.cn/share/share.php?title= ?url=http://www.iabel.com/2013/09/16/2013-09-16-GCD参考[翻译]/" target="_blank">
+        <span class="hidden">weibo</span>
+    </a>
+    <a class="icon-twitter" href="http://twitter.com/share?url=http://www.iabel.com/2013/09/16/2013-09-16-GCD参考[翻译]/"
+       onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+    </a>
+    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://www.iabel.com/2013/09/16/2013-09-16-GCD参考[翻译]/"
+       onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+    </a>
+    <a class="icon-google-plus" href="https://plus.google.com/share?url=http://www.iabel.com/2013/09/16/2013-09-16-GCD参考[翻译]/"
+       onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+    </a>
+</section>
+
+    </footer>
+  </article>
+  <nav class="pagination" role="pagination">
+    
+    <a class="newer-posts" href="../2013-09-16-Mac OS X下AIR通过NavtiveProcess打开Flash/">
+        ← Mac OS X下，AIR通过NavtiveProcess打开Flash.app
+    </a>
+    
+    <span class="icon-logo">•</span>
+    
+    <a class="older-posts" href="../2013-09-16-CoreData使用笔记/">
+        CoreData使用笔记 →
+    </a>
+    
+</nav>
+
+  <div id="comment" class="comments-area">
+    <h4 class="title"><a href="#disqus_comments" name="disqus_comments">Comments</a></h4>
+    
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+    
+</div>
+
+</main>
+
+
+      
+<footer class="site-footer">
+  
+  <div class="inner">
+     <section class="copyright">All content copyright <a href="/">Abel Lee's Blog</a> &copy; 2014 &bull; All rights reserved.</section>
+     <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://zespia.tw/hexo/">Hexo</a></section>
+  </div>
+</footer>
+
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="/js/index.js"></script>
+<script type="text/javascript" src="/js/menu.js"></script>
+
+
+<script type="text/javascript">
+    var disqus_shortname = 'abellee';
+
+    (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+  </div>
+</div>
+
+<nav  class="outer-nav top horizontal">
+
+          <a class="icon-home"  href="../../../..//"><span>首页</span></a>
+
+          <a class="icon-news"  href="../../../..//archives"><span>归档</span></a>
+
+          <a class="icon-image"  href="../../../..//images"><span>图片</span></a>
+
+          <a class="icon-wiki"  href="../../../..//categories"><span>分类</span></a>
+
+</nav>
+
+</div>
+</body>
+</html>

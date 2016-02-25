@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <title>beego自定义Router规则 | Abel Lee&#39;s Blog</title>
+  <meta name="description" content="" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="MobileOptimized" content="320" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+  <link rel="stylesheet" type="text/css" href="/css/style.css" />
+  <meta name="generator" content="Abel Lee's Blog">
+
+  
+  
+  
+
+  
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body class="home-template">
+<div id="perspective" class="perspective effect-movedown">
+  <div class="container">
+    <!-- wrapper -->
+    <div class="wrapper">
+
+      <header class="site-head"  style="background: #24282b url(/img/img-bg.jpg) 0 -20%" >
+    <div class="vertical">
+        <div class="site-head-content inner">
+             <a class="blog-logo" href="/"><img src="/img/logo.svg" alt="Blog Logo"/></a> 
+            <h1 class="blog-title">Abel Lee's Blog</h1>
+            <h2 class="blog-description"><button id="showMenu">Show Menu</button></h2>
+        </div>
+    </div>
+</header>
+
+      
+
+<main class="content" role="main">
+  <article class="post">
+    <span class="post-meta">
+      <time datetime="2013-09-15T16:00:00.000Z" itemprop="datePublished">
+          2013-09-16
+      </time>
+    
+    
+    | 
+    <a href='/tags/beego-Router/'>beego Router</a>
+    
+    
+</span>
+    <h1 class="post-title">beego自定义Router规则</h1>
+    <section class="post-content">
+      <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">beego.<span class="function"><span class="title">Router</span><span class="params">(<span class="string">"/news/:all"</span>, &amp;controllers.RController&#123;&#125;)</span></span></span><br><span class="line"><span class="comment">//match /news/path/to/123.html :all= path/to/123.html</span></span><br><span class="line">beego.<span class="function"><span class="title">Router</span><span class="params">(<span class="string">"/user/:username([\w]+)"</span>, &amp;controllers.RController&#123;&#125;)</span></span></span><br><span class="line"><span class="comment">//match /user/astaxie :username = astaxie</span></span><br><span class="line">beego.<span class="function"><span class="title">Router</span><span class="params">(<span class="string">"/download/*.*"</span>, &amp;controllers.RController&#123;&#125;)</span></span></span><br><span class="line"><span class="comment">//match /download/file/api.xml :path= file/api :ext=xml</span></span><br><span class="line">beego.<span class="function"><span class="title">Router</span><span class="params">(<span class="string">"/download/ceshi/*"</span>, &amp;controllers.RController&#123;&#125;)</span></span></span><br><span class="line"><span class="comment">//match /download/ceshi/file/api.json :splat=file/api.json</span></span><br><span class="line">beego.<span class="function"><span class="title">Router</span><span class="params">(<span class="string">"/:id:int"</span>, &amp;controllers.RController&#123;&#125;)</span></span></span><br><span class="line"><span class="comment">//match :id is type int ，regexp is ([0-9]+)</span></span><br><span class="line">beego.<span class="function"><span class="title">Router</span><span class="params">(<span class="string">"/:hi:string"</span>, &amp;controllers.RController&#123;&#125;)</span></span></span><br><span class="line"><span class="comment">//match :hi is type string。regexp is ([\w]+)</span></span><br></pre></td></tr></table></figure>
+    </section>
+    <footer class="post-footer">
+      <section class="author">
+    <h4>Abel Lee</h4>
+    <p></p>
+</section>
+      <section class="share">
+    <h4>Share this post</h4>
+    <a class="icon-sina-weibo" href="http://v.t.sina.com.cn/share/share.php?title= ?url=http://www.iabel.com/2013/09/16/2013-09-16-beego自定义Router规则/" target="_blank">
+        <span class="hidden">weibo</span>
+    </a>
+    <a class="icon-twitter" href="http://twitter.com/share?url=http://www.iabel.com/2013/09/16/2013-09-16-beego自定义Router规则/"
+       onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+    </a>
+    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://www.iabel.com/2013/09/16/2013-09-16-beego自定义Router规则/"
+       onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+    </a>
+    <a class="icon-google-plus" href="https://plus.google.com/share?url=http://www.iabel.com/2013/09/16/2013-09-16-beego自定义Router规则/"
+       onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+    </a>
+</section>
+
+    </footer>
+  </article>
+  <nav class="pagination" role="pagination">
+    
+    <a class="newer-posts" href="../2013-09-16-关于N个多相同Button共处的优化方案/">
+        ← 关于N个多相同Button共处的优化方案
+    </a>
+    
+    <span class="icon-logo">•</span>
+    
+    <a class="older-posts" href="../2013-09-16-as3commons生成DoABC关键部分代码说明/">
+        as3commons生成DoABC关键部分代码说明 →
+    </a>
+    
+</nav>
+
+  <div id="comment" class="comments-area">
+    <h4 class="title"><a href="#disqus_comments" name="disqus_comments">Comments</a></h4>
+    
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+    
+</div>
+
+</main>
+
+
+      
+<footer class="site-footer">
+  
+  <div class="inner">
+     <section class="copyright">All content copyright <a href="/">Abel Lee's Blog</a> &copy; 2014 &bull; All rights reserved.</section>
+     <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://zespia.tw/hexo/">Hexo</a></section>
+  </div>
+</footer>
+
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="/js/index.js"></script>
+<script type="text/javascript" src="/js/menu.js"></script>
+
+
+<script type="text/javascript">
+    var disqus_shortname = 'abellee';
+
+    (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+  </div>
+</div>
+
+<nav  class="outer-nav top horizontal">
+
+          <a class="icon-home"  href="../../../..//"><span>首页</span></a>
+
+          <a class="icon-news"  href="../../../..//archives"><span>归档</span></a>
+
+          <a class="icon-image"  href="../../../..//images"><span>图片</span></a>
+
+          <a class="icon-wiki"  href="../../../..//categories"><span>分类</span></a>
+
+</nav>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <title>ProtocolBuffers使用 | Abel Lee&#39;s Blog</title>
+  <meta name="description" content="" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="MobileOptimized" content="320" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+  <link rel="stylesheet" type="text/css" href="/css/style.css" />
+  <meta name="generator" content="Abel Lee's Blog">
+
+  
+  
+  
+
+  
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body class="home-template">
+<div id="perspective" class="perspective effect-movedown">
+  <div class="container">
+    <!-- wrapper -->
+    <div class="wrapper">
+
+      <header class="site-head"  style="background: #24282b url(/img/img-bg.jpg) 0 -20%" >
+    <div class="vertical">
+        <div class="site-head-content inner">
+             <a class="blog-logo" href="/"><img src="/img/logo.svg" alt="Blog Logo"/></a> 
+            <h1 class="blog-title">Abel Lee's Blog</h1>
+            <h2 class="blog-description"><button id="showMenu">Show Menu</button></h2>
+        </div>
+    </div>
+</header>
+
+      
+
+<main class="content" role="main">
+  <article class="post">
+    <span class="post-meta">
+      <time datetime="2013-09-15T16:00:00.000Z" itemprop="datePublished">
+          2013-09-16
+      </time>
+    
+    
+    | 
+    <a href='/tags/ProtocolBuffers-c-objective-c/'>ProtocolBuffers c++ objective-c</a>
+    
+    
+</span>
+    <h1 class="post-title">ProtocolBuffers使用</h1>
+    <section class="post-content">
+      <p>下载地址就不帖了</p>
+<p>google一下就有</p>
+<p><em>pb（ProtocolBuffers）</em> 有for N多的语言</p>
+<p>基本常用的都涵盖了。。</p>
+<p>所以不用担心你现在使用的语言会没法用pb</p>
+<p>在某些语言方面貌似pb效率不是最好的</p>
+<p>比如AS3 貌似还是原生的rtmp比较快</p>
+<p>但pb大大降低了通讯方面的复杂性 这一百几十毫秒的差距</p>
+<p>在不是世界级应用的情况下 还是能接受的</p>
+<p>用pb 你基本就不用自己另外写model了</p>
+<p>写了.proto 生成出来的 就是model</p>
+<p>服务端发过来序列化一下就能用</p>
+<p>先帖一下proto生成c文件的命令：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Windows:   protoc.exe -I=<span class="keyword">D</span>:\protobuf\<span class="keyword">test</span> --cpp_out=<span class="keyword">D</span>:\protobuf\<span class="keyword">test</span> <span class="keyword">D</span>:\protobuf\<span class="keyword">test</span>\helloworld.proto</span><br><span class="line"></span><br><span class="line"><span class="keyword">Mac</span>:   protoc --proto_path=src --objc_out=src src/helloworld.proto</span><br></pre></td></tr></table></figure>
+<p>1：导入protobuf-obj.src/runtime/Classes 并改命为ProtocolBuffers</p>
+<p>2：项目属性 -&gt; Build setting -&gt; Header Search Paths 添加”.”</p>
+<p>关于pb里能用的数据类型之类的 可以去看google的教程</p>
+<p>再就是在目前使用下来的情况来看</p>
+<p>貌似pb里不能给字段赋默认值- -！</p>
+<p>至少objective-c里 反序列化的时候 会出问题</p>
+<p>比如说</p>
+<figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">message</span> <span class="title">HelloWorld</span></span>&#123;</span><br><span class="line">        <span class="keyword">required</span> <span class="built_in">int32</span> uid = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">optional</span> <span class="built_in">string</span> username = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后你在使用的时候</p>
+<p>uid如果赋值为0 objective-c端序列化的时候就会报错 malformedMessage</p>
+<p>username这个字段本身是可选的 所以 要不你就设置一个字符 要不就直接不赋值</p>
+<p>如果你赋值个”” 也就是空字符 objective-c也会报这个错误</p>
+<p>原因我也不知道- -！</p>
+<p>哪位知道的请指点一下 先谢过了~</p>
+<p>至于其它的 比如做RPC或者pb的extension 我现在没用 各位可以去看google的教程</p>
+<p>官方有c++ java python的教程~</p>
+<p>对了 再补充说一下</p>
+<p>如果你跟我一样 客户端是Objective-C的话</p>
+<p>可能需要用到github上一个Objective-C的第三方插件生成proto的编译工具</p>
+<p>在这个第三方插件能用之前是必需要先装google官方的pb的</p>
+<p>在安装官方pb的时候 仔细看一下里面的readme</p>
+<p>安装过程的命令是</p>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">.</span>/configure</span><br><span class="line">make</span><br><span class="line">make<span class="instruction"> check</span><br><span class="line"></span>make install</span><br></pre></td></tr></table></figure>
+<p>在readme里说是可以不做make check的 但事实上我没做就不能make install</p>
+<p>说是某些文件没生成 所以还是做一下好</p>
+<p>我要讲的就是在第一步的时候</p>
+<p>要记得加前缀 也就是</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./configure <span class="comment">--prefix=/usr</span></span><br></pre></td></tr></table></figure>
+<p>这样的话就会把pb装到/usr/lib下</p>
+<p>那你在装那个objective-c的编译工具的时候就可以直接按他的步骤来了</p>
+<p>否则安装过程就会说找不到某些lib</p>
+<p>如果你会 自然怎么样都行</p>
+<p>但像我这样的菜鸟 就因为这个问题折腾了我一晚上</p>
+<p>所以提醒大家一下~</p>
+
+    </section>
+    <footer class="post-footer">
+      <section class="author">
+    <h4>Abel Lee</h4>
+    <p></p>
+</section>
+      <section class="share">
+    <h4>Share this post</h4>
+    <a class="icon-sina-weibo" href="http://v.t.sina.com.cn/share/share.php?title= ?url=http://www.iabel.com/2013/09/16/2013-09-16-ProtocolBuffers使用/" target="_blank">
+        <span class="hidden">weibo</span>
+    </a>
+    <a class="icon-twitter" href="http://twitter.com/share?url=http://www.iabel.com/2013/09/16/2013-09-16-ProtocolBuffers使用/"
+       onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+    </a>
+    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://www.iabel.com/2013/09/16/2013-09-16-ProtocolBuffers使用/"
+       onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+    </a>
+    <a class="icon-google-plus" href="https://plus.google.com/share?url=http://www.iabel.com/2013/09/16/2013-09-16-ProtocolBuffers使用/"
+       onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+    </a>
+</section>
+
+    </footer>
+  </article>
+  <nav class="pagination" role="pagination">
+    
+    <a class="newer-posts" href="../2013-09-16-Rythum+Game（1）/">
+        ← Rythum Game(1)
+    </a>
+    
+    <span class="icon-logo">•</span>
+    
+    <a class="older-posts" href="../2013-09-16-MyEclipse 2013+For+RMBP/">
+        MyEclipse 2013 For RMBP →
+    </a>
+    
+</nav>
+
+  <div id="comment" class="comments-area">
+    <h4 class="title"><a href="#disqus_comments" name="disqus_comments">Comments</a></h4>
+    
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+    
+</div>
+
+</main>
+
+
+      
+<footer class="site-footer">
+  
+  <div class="inner">
+     <section class="copyright">All content copyright <a href="/">Abel Lee's Blog</a> &copy; 2014 &bull; All rights reserved.</section>
+     <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://zespia.tw/hexo/">Hexo</a></section>
+  </div>
+</footer>
+
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="/js/index.js"></script>
+<script type="text/javascript" src="/js/menu.js"></script>
+
+
+<script type="text/javascript">
+    var disqus_shortname = 'abellee';
+
+    (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+  </div>
+</div>
+
+<nav  class="outer-nav top horizontal">
+
+          <a class="icon-home"  href="../../../..//"><span>首页</span></a>
+
+          <a class="icon-news"  href="../../../..//archives"><span>归档</span></a>
+
+          <a class="icon-image"  href="../../../..//images"><span>图片</span></a>
+
+          <a class="icon-wiki"  href="../../../..//categories"><span>分类</span></a>
+
+</nav>
+
+</div>
+</body>
+</html>
